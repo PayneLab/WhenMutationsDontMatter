@@ -1,3 +1,6 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 '''
 @Param df1:
      Dataframe of p-values for the first cancer (x-axis). 
@@ -84,7 +87,7 @@ def binary_pval_plot(df1, df1_name, df2, df2_name, cat_df=None, save_file_name=N
         return 1
         
     
-    sns.set(font_scale = 1.1)
+    #sns.set(font_scale = 1.1)
     fig, axes = plt.subplots(m_row, m_col, sharex=True, sharey=True) # share x -axis title
     
     #Step 3: Create Multiple Plots
