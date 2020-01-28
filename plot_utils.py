@@ -145,11 +145,14 @@ import scipy.stats
 import statsmodels.stats.multitest
 
 '''
-@Param df: data frame that contains numeric values (such as proteomics) for linear regression
-@Param label_column: column will be your x axis and will be compared to all values in df unless otherwise specified. 
+@Param df: Dataframe. Contains numeric values (such as proteomics) for linear regression
+@Param label_column: String. Name of column that will be your x axis and will be compared to all values in df unless otherwise specified. 
 @Param alpha: significant level
 @Param comparison_columns: columns that will be looped through and used as y axis for linear regression. 
 All other columns beside label column unless specified here. 
+@Param correction_method: String. Specifies method of adjustment for multiple testing. See -
+https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html
+    - for documentation and available methods.
 
 This function will return a data frame will all significant linear regressions. The data frame includes the comparison, slope, R-squared, and P-value. 
 '''
@@ -200,7 +203,44 @@ def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,corre
     newdf = newdf.sort_values(by='P_value', ascending=True)
     
     return newdf
+'''
+@Param df1: Dataframe. Contains numeric values (such as proteomics) for linear regression
+@Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values. 
+@Param y_axis:String. Used as the label for the y-axis as well as the column name for the y-axis values. 
+@Param title: String. Used as title of figure
+@Param ra_stats: Boolean. Defalt is False. If true it will print out the linear regression stats. 
+@Param show_plot: Boolean. Defalt is True. If true it will show the linear regression plot.
+@Param save_file_name: String.File will not be saved unless a file name is specified. Plot is saved in current directory as png. 
 
+This fuction takes a dataframe with numeric values (such as proteomics) and performs a linear regression analysis between two user specified columns within the dataframe. The function will then create the linear regression graph and can print the graph to the screen and save the figure depending on user input. 
+'''
+
+
+def plot_lin_regression(df1,x_axis, y_axis, title, ra_stats = False, show_plot = True, save_file_name = "file_name" ):
+    #subset df to have just the x and y axis specified 
+    df1_subset = df1[[x_axis,y_axis]]
+    #drop na values. Can't have in linear regression
+    df1_subset = df1_subset.dropna(axis=0, how="any")
+
+    x1 = df1_subset[[x_axis]].values
+    y1 = df_gbm_subset[[y_axis]].values
+    x1 = x1[:,0]
+    y1 = y1[:,0]
+
+    slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(x1,y1)
+    if ra_stats:
+        print ('Slope of regression: %s\nR-squared: %s\nP-value: %s'%(slope, r_value**2, p_value))
+        
+    sns.set(style="darkgrid")
+    plot = sns.regplot(x=x1, y=y1, data=df1)
+    plot.set(xlabel=x_axis, ylabel=y_axis, title=title)
+    if show_plot:
+        plt.show()
+        plt.clf()        
+        plt.close()
+        
+    if save_file_name != "file_name":
+        plt.savefig(save_file_name+'.png')
 
 
 
