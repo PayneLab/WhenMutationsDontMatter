@@ -138,3 +138,71 @@ def binary_pval_plot(df1, df1_name, df2, df2_name, cat_df=None, save_file_name=N
     plt.clf()        
     plt.close()
     return 0
+
+
+import pandas as pd
+import scipy.stats
+import statsmodels.stats.multitest
+
+'''
+@Param df: data frame that contains numeric values (such as proteomics) for linear regression
+@Param label_column: column will be your x axis and will be compared to all values in df unless otherwise specified. 
+@Param alpha: significant level
+@Param comparison_columns: columns that will be looped through and used as y axis for linear regression. 
+All other columns beside label column unless specified here. 
+
+This function will return a data frame will all significant linear regressions. The data frame includes the comparison, slope, R-squared, and P-value. 
+'''
+
+def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni' ):
+    
+    df = df.dropna(axis=1, how="all")
+    
+    '''If no comparison columns specified, use all columns except the specified labed column'''
+    if not comparison_columns:
+        comparison_columns = list(df.columns)
+        comparison_columns.remove(label_column)
+    '''Store comparisons and p-values in two arrays'''
+    comparisons = []
+    pvals = []
+    
+    '''Format results in a pandas dataframe'''
+    newdf = pd.DataFrame(columns=['Comparison','Slope', 'R_squared', 'P_value'])
+    for inter_gene in comparison_columns:
+        #create subset df with interacting gene/ gene (otherwise drop NaN drops everything)
+        df_subset = df[[label_column,inter_gene]]
+        #do a linear regression to see if it's a meaningful association
+        #dropna will remove rows with nan
+        df_subset = df_subset.dropna(axis=0, how="any")
+        count_row = df_subset.shape[0]
+        if count_row > 0:
+            x1 = df_subset[[label_column]].values
+            y1 = df_subset[[inter_gene]].values
+            x1 = x1[:,0]
+            y1 = y1[:,0]
+
+        slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(x1,y1)
+        
+        comparisons.append(inter_gene)
+        pvals.append(p_value)
+        
+    '''Correct for multiple testing to determine if each comparison meets the new cutoff'''
+    results = statsmodels.stats.multitest.multipletests(pvals=pvals, alpha=alpha, method=correction_method)
+    reject = results[0]
+        
+
+    '''Else only add significant comparisons'''
+    for i in range(0, len(reject)):
+        if reject[i]:
+             newdf = newdf.append({'Comparison': comparisons[i],"Slope": slope, 'R_squared': str(r_value**2), 'P_value': pvals[i]}, ignore_index=True)
+                    
+    '''Sort dataframe by ascending p-value'''
+    newdf = newdf.sort_values(by='P_value', ascending=True)
+    
+    return newdf
+
+
+
+
+
+
