@@ -51,7 +51,7 @@ def binary_pval_plot(df1, df1_name, df2, df2_name, cat_df=None, save_file_name=N
     combined_df = combined.rename(columns={combined.columns[1]: df1_name+" p-values", 
                                               combined.columns[2]: df2_name+" p-values"}) # Rename for use with x and y-axis
     if cat_df is not None:
-        combined_df = combined.merge(cat_df, left_on= combined.columns[0], right_on= cat_df.columns[0]) # merge pathways
+        combined_df = combined_df.merge(cat_df, left_on= combined_df.columns[0], right_on= cat_df.columns[0]) # merge pathways
     
     else: # Plots one plot if no cat_df provided
         plt.figure(figsize=(6, 6)) 
@@ -87,14 +87,13 @@ def binary_pval_plot(df1, df1_name, df2, df2_name, cat_df=None, save_file_name=N
         print("Two many columns in cat_df. Can only plot 5 pathways/groups. (6 total plots)")
         return 1
         
-    
-    #sns.set(font_scale = 1.1)
     fig, axes = plt.subplots(m_row, m_col, sharex=True, sharey=True) # share x -axis title
+    plt.rcParams['figure.figsize']=(15, 10) #size of plot
+    sns.set(font_scale = 1.1)
     
     #Step 3: Create Multiple Plots
     if two_plots == True:  ### needed because subplots dimensions are a 1D array, not 2D
         # First plot with all p-values
-        plt.rcParams['figure.figsize']=(5, 5) #size of plot
         ax = sns.scatterplot(x=combined_df.columns[1], y=combined_df.columns[2], data=combined_df,  
             ax=axes[0])
         ax.set_title("Comprehensive "+df1_name+" and "+df2_name+ " P-Values")
@@ -110,7 +109,6 @@ def binary_pval_plot(df1, df1_name, df2, df2_name, cat_df=None, save_file_name=N
 
     else:
         # First plot with all p-values
-        plt.rcParams['figure.figsize']=(15, 10) #size of plot
         ax = sns.scatterplot(x=combined_df.columns[1], y=combined_df.columns[2], data=combined_df,  
             ax=axes[0,0])
         ax.set_title("Comprehensive "+df1_name+" and "+df2_name+ " P-Values")
