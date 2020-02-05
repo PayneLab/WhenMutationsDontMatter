@@ -167,6 +167,8 @@ def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,corre
     '''Store comparisons and p-values in two arrays'''
     comparisons = []
     pvals = []
+    r_squared =[]
+    slope_val = []
     
     '''Format results in a pandas dataframe'''
     newdf = pd.DataFrame(columns=['Comparison','Slope', 'R_squared', 'P_value'])
@@ -187,6 +189,9 @@ def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,corre
         
         comparisons.append(inter_gene)
         pvals.append(p_value)
+        r_squared.append(r_value**2)
+        slope_val.append(slope)
+        
         
     '''Correct for multiple testing to determine if each comparison meets the new cutoff'''
     results = statsmodels.stats.multitest.multipletests(pvals=pvals, alpha=alpha, method=correction_method)
@@ -196,7 +201,8 @@ def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,corre
     '''Else only add significant comparisons'''
     for i in range(0, len(reject)):
         if reject[i]:
-             newdf = newdf.append({'Comparison': comparisons[i],"Slope": slope, 'R_squared': str(r_value**2), 'P_value': pvals[i]}, ignore_index=True)
+            newdf = newdf.append({'Comparison': comparisons[i],"Slope": slope_val[i], 'R_squared': r_squared[i], 'P_value': pvals[i]}, ignore_index=True)
+                    
                     
     '''Sort dataframe by ascending p-value'''
     newdf = newdf.sort_values(by='P_value', ascending=True)
