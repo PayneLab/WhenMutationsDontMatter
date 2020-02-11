@@ -156,15 +156,16 @@ https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipl
 This function will return a data frame will all significant linear regressions. The data frame includes the comparison, slope, R-squared, and P-value. 
 '''
 
-def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni' ):
+def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni',return_all = True):
     
+
     df = df.dropna(axis=1, how="all")
     
     '''If no comparison columns specified, use all columns except the specified labed column'''
     if not comparison_columns:
         comparison_columns = list(df.columns)
         comparison_columns.remove(label_column)
-    '''Store comparisons and p-values in two arrays'''
+    '''Store comparisons,p-values, r_squared, and slope in their own array'''
     comparisons = []
     pvals = []
     r_squared =[]
@@ -192,22 +193,26 @@ def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,corre
         r_squared.append(r_value**2)
         slope_val.append(slope)
         
-        
     '''Correct for multiple testing to determine if each comparison meets the new cutoff'''
     results = statsmodels.stats.multitest.multipletests(pvals=pvals, alpha=alpha, method=correction_method)
     reject = results[0]
         
-
-    '''Else only add significant comparisons'''
-    for i in range(0, len(reject)):
-        if reject[i]:
+    if return_all:
+        for i in range(0,len(comparisons)):
             newdf = newdf.append({'Comparison': comparisons[i],"Slope": slope_val[i], 'R_squared': r_squared[i], 'P_value': pvals[i]}, ignore_index=True)
-                    
+        
+    '''Else only add significant comparisons'''
+    if (return_all == False):
+            for i in range(0, len(reject)):
+                if reject[i]:
+                    newdf = newdf.append({'Comparison': comparisons[i],"Slope": slope_val[i], 'R_squared': r_squared[i], 'P_value': pvals[i]}, ignore_index=True)
                     
     '''Sort dataframe by ascending p-value'''
     newdf = newdf.sort_values(by='P_value', ascending=True)
-    
+    '''If results df is not empty, return it, else return None'''
     return newdf
+
+
 '''
 @Param df1: Dataframe. Contains numeric values (such as proteomics) for linear regression
 @Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values. 
