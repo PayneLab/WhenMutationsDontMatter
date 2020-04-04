@@ -1,4 +1,63 @@
 import pandas as pd
+import numpy as np
+from bokeh.palettes import RdBu
+from bokeh.models import LinearColorMapper, ColumnDataSource, ColorBar
+from bokeh.models.ranges import FactorRange
+from bokeh.plotting import figure, show
+from bokeh.io import output_notebook
+from bokeh.io import export_png
+from bokeh.io import export_svgs
+
+
+'''
+@Param df: Dataframe. Contains column with x-axis categorical variables, y-axis categorical variables,
+and columns for circle size and color gradient. 
+@Param circle_var. String. Name of column for numeric data to base circle size off of 
+@Param color_var. String. Name of column of numeric data to base color gradient off of. Can be the same or different as circle_var
+@Param x_axis String. Name of column for x-axis categorical labels
+@Param y_axis String. Name of column for y-axis categorical labels
+@Param x_axis_lab. String. Default is no label. 
+@Param y_axis_lab. String. Default is no label. 
+
+This function creates a bokeh map that is heat map with extra variable of size of the circles. 
+
+'''
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "no_label", y_axis_lab = "no_label"):
+  
+
+
+    #added a new column to make the plot size
+    df['size'] = np.where(df[circle_var]<0, np.abs(df[circle_var]), df[circle_var])*50
+ 
+
+    colors = list(reversed(RdBu[9]))
+    exp_cmap = LinearColorMapper(palette=colors, low = -1, high = 1)
+    p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width=700, 
+               plot_height=450, 
+               toolbar_location=None, tools="hover")
+
+    p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size", 
+              fill_color={"field":color_var, "transform":exp_cmap})
+
+    p.x_range.factors = sorted(df3[x_axis].unique().tolist())
+    p.y_range.factors = sorted(df3[y_axis].unique().tolist(), reverse = True)
+    p.xaxis.major_label_orientation = math.pi/2
+    
+    if (x_axis_lab != "no_label" ):
+        p.xaxis.axis_label = x_axis_lab
+    if (x_axis_lab != "no_label" ):   
+        p.yaxis.axis_label = y_axis_lab
+
+    bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
+    p.add_layout(bar, "right")
+    output_notebook()
+  
+    show(p)
+
+
+
+
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
