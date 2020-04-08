@@ -1,4 +1,63 @@
 import pandas as pd
+import numpy as np
+from bokeh.palettes import RdBu
+from bokeh.models import LinearColorMapper, ColumnDataSource, ColorBar
+from bokeh.models.ranges import FactorRange
+from bokeh.plotting import figure, show
+from bokeh.io import output_notebook
+from bokeh.io import export_png
+from bokeh.io import export_svgs
+
+
+'''
+@Param df: Dataframe. Contains column with x-axis categorical variables, y-axis categorical variables,
+and columns for circle size and color gradient. 
+@Param circle_var. String. Name of column for numeric data to base circle size off of 
+@Param color_var. String. Name of column of numeric data to base color gradient off of. Can be the same or different as circle_var
+@Param x_axis String. Name of column for x-axis categorical labels
+@Param y_axis String. Name of column for y-axis categorical labels
+@Param x_axis_lab. String. Default is no label. 
+@Param y_axis_lab. String. Default is no label. 
+
+This function creates a bokeh map that is heat map with extra variable of size of the circles. 
+
+'''
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "no_label", y_axis_lab = "no_label"):
+  
+
+
+    #added a new column to make the plot size
+    df['size'] = np.where(df[circle_var]<0, np.abs(df[circle_var]), df[circle_var])*50
+ 
+
+    colors = list(reversed(RdBu[9]))
+    exp_cmap = LinearColorMapper(palette=colors, low = -1, high = 1)
+    p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width=700, 
+               plot_height=450, 
+               toolbar_location=None, tools="hover")
+
+    p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size", 
+              fill_color={"field":color_var, "transform":exp_cmap})
+
+    p.x_range.factors = sorted(df3[x_axis].unique().tolist())
+    p.y_range.factors = sorted(df3[y_axis].unique().tolist(), reverse = True)
+    p.xaxis.major_label_orientation = math.pi/2
+    
+    if (x_axis_lab != "no_label" ):
+        p.xaxis.axis_label = x_axis_lab
+    if (x_axis_lab != "no_label" ):   
+        p.yaxis.axis_label = y_axis_lab
+
+    bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
+    p.add_layout(bar, "right")
+    output_notebook()
+  
+    show(p)
+
+
+
+
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -155,43 +214,59 @@ https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipl
 
 This function will return a data frame will all significant linear regressions. The data frame includes the comparison, slope, R-squared, and P-value. 
 '''
+import pandas as pd
+import numpy as np
+import scipy.stats
+import statsmodels.stats.multitest
+import re
+import sys
+'''
+@Param df: Dataframe.Each column is a different gene/ comparison. Rows contains numeric values (such as proteomics) for correlation test
+@Param label_column: String. Name of column that will be your x axis and will be compared to all values in df unless otherwise specified. 
+@Param alpha: significant level
+@Param comparison_columns: columns that will be looped through and used as y axis for correlation test. 
+All other columns beside label column unless specified here. 
+@Param correction_method: String. Specifies method of adjustment for multiple testing. See -
+https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html
+    - for documentation and available methods.
 
-def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni',return_all = True):
+This function will return a data frame with the columns comparison, the correlation coefficient, and the p value. 
+'''
+def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni',return_all = True):
     
 
-    df = df.dropna(axis=1, how="all")
+    #df = df.dropna(axis=1, how="all")
     
     '''If no comparison columns specified, use all columns except the specified labed column'''
     if not comparison_columns:
         comparison_columns = list(df.columns)
         comparison_columns.remove(label_column)
-    '''Store comparisons,p-values, r_squared, and slope in their own array'''
+    '''Store comparisons,p-values, correlation in their own array'''
     comparisons = []
     pvals = []
-    r_squared =[]
-    slope_val = []
+    correlation=[]
+    
     
     '''Format results in a pandas dataframe'''
-    newdf = pd.DataFrame(columns=['Comparison','Slope', 'R_squared', 'P_value'])
-    for inter_gene in comparison_columns:
+    newdf = pd.DataFrame(columns=['Comparison','Correlation','P_value'])
+    for gene in comparison_columns:
         #create subset df with interacting gene/ gene (otherwise drop NaN drops everything)
-        df_subset = df[[label_column,inter_gene]]
+        df_subset = df[[label_column,gene]]
         #do a linear regression to see if it's a meaningful association
         #dropna will remove rows with nan
         df_subset = df_subset.dropna(axis=0, how="any")
         count_row = df_subset.shape[0]
-        if count_row > 0:
+        if count_row > 20:
             x1 = df_subset[[label_column]].values
-            y1 = df_subset[[inter_gene]].values
+            y1 = df_subset[[gene]].values
             x1 = x1[:,0]
             y1 = y1[:,0]
+            corr, pval = scipy.stats.pearsonr(x1,y1)
 
-        slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(x1,y1)
-        
-        comparisons.append(inter_gene)
-        pvals.append(p_value)
-        r_squared.append(r_value**2)
-        slope_val.append(slope)
+            comparisons.append(gene)
+            pvals.append(pval)
+            correlation.append(corr)
+    
         
     '''Correct for multiple testing to determine if each comparison meets the new cutoff'''
     results = statsmodels.stats.multitest.multipletests(pvals=pvals, alpha=alpha, method=correction_method)
@@ -199,20 +274,21 @@ def wrap_lin_regression(df,label_column, alpha=.05,comparison_columns=None,corre
         
     if return_all:
         for i in range(0,len(comparisons)):
-            newdf = newdf.append({'Comparison': comparisons[i],"Slope": slope_val[i], 'R_squared': r_squared[i], 'P_value': pvals[i]}, ignore_index=True)
+            newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
         
     '''Else only add significant comparisons'''
     if (return_all == False):
             for i in range(0, len(reject)):
                 if reject[i]:
-                    newdf = newdf.append({'Comparison': comparisons[i],"Slope": slope_val[i], 'R_squared': r_squared[i], 'P_value': pvals[i]}, ignore_index=True)
+                    newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
                     
     '''Sort dataframe by ascending p-value'''
     newdf = newdf.sort_values(by='P_value', ascending=True)
     '''If results df is not empty, return it, else return None'''
     return newdf
 
-
+       
+  
 '''
 @Param df1: Dataframe. Contains numeric values (such as proteomics) for linear regression
 @Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values. 
