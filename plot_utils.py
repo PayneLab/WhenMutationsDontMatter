@@ -214,8 +214,12 @@ https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipl
 
 This function will return a data frame will all significant linear regressions. The data frame includes the comparison, slope, R-squared, and P-value. 
 '''
+import pandas as pd
+import numpy as np
 import scipy.stats
 import statsmodels.stats.multitest
+import re
+import sys
 '''
 @Param df: Dataframe.Each column is a different gene/ comparison. Rows contains numeric values (such as proteomics) for correlation test
 @Param label_column: String. Name of column that will be your x axis and will be compared to all values in df unless otherwise specified. 
