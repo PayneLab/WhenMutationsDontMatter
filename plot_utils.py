@@ -39,8 +39,8 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "
     p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size", 
               fill_color={"field":color_var, "transform":exp_cmap})
 
-    p.x_range.factors = sorted(df3[x_axis].unique().tolist())
-    p.y_range.factors = sorted(df3[y_axis].unique().tolist(), reverse = True)
+    p.x_range.factors = sorted(df[x_axis].unique().tolist())
+    p.y_range.factors = sorted(df[y_axis].unique().tolist(), reverse = True)
     p.xaxis.major_label_orientation = math.pi/2
     
     if (x_axis_lab != "no_label" ):
