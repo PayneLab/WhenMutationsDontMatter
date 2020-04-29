@@ -334,95 +334,9 @@ def plot_lin_regression(df1,x_axis, y_axis, title, ra_stats = False, show_plot =
     if save_file_name != "file_name":
         plt.savefig(save_file_name+'.png')
 
-        
-
-import numpy as np
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-def plot_mutations(dflist = None, names_of_df=None):
-    number_of_df = len(dflist)
-    
-    allLabels = []
-    for df in dflist:
-        #get the labels for each and make a combined label that they'll all use
-        mutation = df["Mutation"]
-        labels = set(mutation)
-        allLabels.append(labels)
-    
-    flat_list = [item for sublist in allLabels for item in sublist]
-    all_labels = list(set(flat_list))
-    all_labels.sort()
-    allLabels = all_labels
-    
-#     For each df, add na to their labels if it doesn't exist in all_labels
-    labels_for_each_df = []
-    frequencies_for_each_df = []
-    for df in dflist:
-        mutation = df["Mutation"].tolist()
-        mutationlist = list(set(mutation))
-        mutationlist.sort()
-        ordered_mut_list = []
-        match = True
-        mutPosition = 0
-        
-        for position in range(len(all_labels)):
-            try:
-                
-                if mutationlist[mutPosition] == all_labels[position]:
-                    ordered_mut_list.append(mutationlist[mutPosition])
-                    mutPosition += 1
-
-                else:
-                    ordered_mut_list.append("na")
-
-            except IndexError:  
-                ordered_mut_list.append("na")
-       
-        
-        labels_for_each_df.append(ordered_mut_list)
-
-        #get the freq of each mutation type
-        freq = []
-        for mutation_type in ordered_mut_list:
-            freq.append(mutation.count(mutation_type))
-
-        PercentFreq = [x*100 / sum(freq) for x in freq]
-        frequencies_for_each_df.append(PercentFreq)
-        
-        
-#     import pdb; pdb.set_trace()
-    #Now plot it using arrays
-    width = 0.1
-    x = np.arange(len(allLabels))
-    a4_dims = (13, 10) #dimensions for bigger plot
-    fig, ax = plt.subplots(figsize=a4_dims)
-    for position in range(0, number_of_df):
-        r = ax.bar(x+(width*position), frequencies_for_each_df[position], width,label=names_of_df[position], alpha=.5, linewidth=0)
 
 
 
-    ax.set_ylabel('Percent Sample')
-    #ax.set_title('Mutation Frequency and Effect')
-    ax.set_xticks(x)
-    ax.set_xticklabels(allLabels)
-    ax.legend()
-    
-
-
-
-    fig.tight_layout()
-    plt.setp(ax.get_xticklabels(),rotation='vertical')
-    #plt.show()
-    
-
-        
-    
-    plt.subplots_adjust(bottom=0.3)
-    
-    plt.savefig('png_files/Step1_EGFR.png')
     
 
 
