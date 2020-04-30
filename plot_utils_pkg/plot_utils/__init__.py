@@ -339,11 +339,11 @@ def plot_lin_regression(df1,x_axis, y_axis, title, ra_stats = False, show_plot =
 @Param dflist: List. A list of cancer dataframes that contain the mutation type frequnecy (dataframes that are returned from the get_genotype_all_var function)
 @Param names_of_df: List. Names of the cancers (names MUST correlate to dflist)
 @Param title: String. The title of the graph.
-@Param save_to_path: String. Used as title of figure
+@Param save_to_path: String. The absoloute path to save the figure to. Defualts to saveing in current directory as step_1.png
 
 This function takes a list of dataframes that contain the mutation type frequncy for cancers and plots them.
 '''
-def plot_mutations(dflist = None, names_of_df=None, title=None, save_to_path=None):
+def figure1_plot_mutations(dflist = None, names_of_df=None, title=None, save_to_path=None):
     number_of_df = len(dflist)
 
     allLabels = []
@@ -414,7 +414,9 @@ def plot_mutations(dflist = None, names_of_df=None, title=None, save_to_path=Non
 
 
     plt.setp(ax.get_xticklabels(),rotation='vertical')
-    plt.savefig(save_to_path)
+    if save_to_path == None:
+        plt.savefig("step_1.png")
+    else:
+        plt.savefig(save_to_path)
 
     plt.show()
-        
