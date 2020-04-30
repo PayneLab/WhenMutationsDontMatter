@@ -292,3 +292,131 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
     newdf = newdf.sort_values(by='P_value', ascending=True)
     '''If results df is not empty, return it, else return None'''
     return newdf
+
+
+
+'''
+@Param df1: Dataframe. Contains numeric values (such as proteomics) for linear regression
+@Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values.
+@Param y_axis:String. Used as the label for the y-axis as well as the column name for the y-axis values.
+@Param title: String. Used as title of figure
+@Param ra_stats: Boolean. Defalt is False. If true it will print out the linear regression stats.
+@Param show_plot: Boolean. Defalt is True. If true it will show the linear regression plot.
+@Param save_file_name: String.File will not be saved unless a file name is specified. Plot is saved in current directory as png.
+
+This fuction takes a dataframe with numeric values (such as proteomics) and performs a linear regression analysis between two user specified columns within the dataframe. The function will then create the linear regression graph and can print the graph to the screen and save the figure depending on user input.
+'''
+
+
+def plot_lin_regression(df1,x_axis, y_axis, title, ra_stats = False, show_plot = True, save_file_name = "file_name" ):
+    #subset df to have just the x and y axis specified
+    df1_subset = df1[[x_axis,y_axis]]
+    #drop na values. Can't have in linear regression
+    df1_subset = df1_subset.dropna(axis=0, how="any")
+
+    x1 = df1_subset[[x_axis]].values
+    y1 = df_gbm_subset[[y_axis]].values
+    x1 = x1[:,0]
+    y1 = y1[:,0]
+
+    slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(x1,y1)
+    if ra_stats:
+        print ('Slope of regression: %s\nR-squared: %s\nP-value: %s'%(slope, r_value**2, p_value))
+
+    sns.set(style="darkgrid")
+    plot = sns.regplot(x=x1, y=y1, data=df1)
+    plot.set(xlabel=x_axis, ylabel=y_axis, title=title)
+    if show_plot:
+        plt.show()
+        plt.clf()
+        plt.close()
+
+    if save_file_name != "file_name":
+        plt.savefig(save_file_name+'.png')
+
+
+'''
+@Param dflist: List. A list of cancer dataframes that contain the mutation type frequnecy (dataframes that are returned from the get_genotype_all_var function)
+@Param names_of_df: List. Names of the cancers (names MUST correlate to dflist)
+@Param title: String. The title of the graph.
+@Param save_to_path: String. The absoloute path to save the figure to. Defualts to saveing in current directory as step_1.png
+
+This function takes a list of dataframes that contain the mutation type frequncy for cancers and plots them.
+'''
+def figure1_plot_mutations(dflist = None, names_of_df=None, title=None, save_to_path=None):
+    number_of_df = len(dflist)
+
+    allLabels = []
+    for df in dflist:
+        #get the labels for each and make a combined label that they'll all use
+        mutation = df["Mutation"]
+        labels = list(set(mutation))
+
+        allLabels.append(labels)
+
+    flat_list = [item for sublist in allLabels for item in sublist]
+    all_labels = list(set(flat_list))
+    all_labels.sort()
+    allLabels = all_labels
+
+#     For each df, add na to their labels if it doesn't exist in all_labels
+    labels_for_each_df = []
+    frequencies_for_each_df = []
+    for df in dflist:
+        mutation = df["Mutation"].tolist()
+        mutationlist = list(set(mutation))
+        mutationlist.sort()
+        ordered_mut_list = []
+        match = True
+        mutPosition = 0
+
+        for position in range(len(all_labels)):
+            try:
+
+                if mutationlist[mutPosition] == all_labels[position]:
+                    ordered_mut_list.append(mutationlist[mutPosition])
+                    mutPosition += 1
+
+                else:
+                    ordered_mut_list.append("na")
+
+            except IndexError:
+                ordered_mut_list.append("na")
+
+
+        labels_for_each_df.append(ordered_mut_list)
+
+        #get the freq of each mutation type
+        freq = []
+        for mutation_type in ordered_mut_list:
+            freq.append(mutation.count(mutation_type))
+
+        PercentFreq = [x*100 / sum(freq) for x in freq]
+        frequencies_for_each_df.append(PercentFreq)
+
+
+    #Now plot it using arrays
+    width = 0.1
+    x = np.arange(len(allLabels))
+    a4_dims = (25, 13) #dimensions for bigger plot
+    fig, ax = plt.subplots(figsize=a4_dims)
+    for position in range(0, number_of_df):
+        r = ax.bar(x+(width*position), frequencies_for_each_df[position], width,label=names_of_df[position], alpha=.5, linewidth=0)
+
+
+
+    ax.set_ylabel('Percent Sample')
+    ax.set_title(title)
+    ax.set_xticks(x)
+    ax.set_xticklabels(allLabels)
+    ax.legend()
+
+
+
+    plt.setp(ax.get_xticklabels(),rotation='vertical')
+    if save_to_path == None:
+        plt.savefig("step_1.png")
+    else:
+        plt.savefig(save_to_path)
+
+    plt.show()
