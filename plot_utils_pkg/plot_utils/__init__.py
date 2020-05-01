@@ -28,7 +28,7 @@ and columns for circle size and color gradient.
 This function creates a bokeh map that is heat map with extra variable of size of the circles.
 
 '''
-def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "no_label", y_axis_lab = "no_label"):
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "no_label", y_axis_lab = "no_label", graph_height=700, graph_width=450):
 
 
 
@@ -36,10 +36,10 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "
     df['size'] = np.where(df[circle_var]<0, np.abs(df[circle_var]), df[circle_var])*50
 
 
-    colors = list(reversed(RdBu[9]))
+    colors = list((RdBu[9]))
     exp_cmap = LinearColorMapper(palette=colors, low = -1, high = 1)
-    p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width=700,
-               plot_height=450,
+    p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width=graph_width,
+               plot_height=graph_height,
                toolbar_location=None, tools="hover")
 
     p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size",
