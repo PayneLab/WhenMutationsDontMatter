@@ -9156,3 +9156,7 @@ LINE 299 : 2020-05-01 20:12:51,883 [DEBUG   ] copy old[1:5] new[1:5]
 LINE 228 : 2020-05-01 20:12:51,883 [DEBUG   ] -> code[replace] old[6:6] new[6:9]
 LINE 341 : 2020-05-01 20:12:51,884 [DEBUG   ] parse_part from 6 to 9 (to 8 in part parser)
 LINE 264 : 2020-05-01 20:12:51,884 [DEBUG   ] diff parser end
+LINE 221 : 2020-05-02 19:50:15,473 [ERROR   ] Invalid alias: The name clear can't be aliased because it is another magic command.
+LINE 221 : 2020-05-02 19:50:15,473 [ERROR   ] Invalid alias: The name more can't be aliased because it is another magic command.
+LINE 221 : 2020-05-02 19:50:15,473 [ERROR   ] Invalid alias: The name less can't be aliased because it is another magic command.
+LINE 221 : 2020-05-02 19:50:15,474 [ERROR   ] Invalid alias: The name man can't be aliased because it is another magic command.
