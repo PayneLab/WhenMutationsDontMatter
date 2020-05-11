@@ -36,7 +36,7 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "
     df['size'] = np.where(df[circle_var]<0, np.abs(df[circle_var]), df[circle_var])*50
  
 
-    colors = list(reversed(RdBu[9]))
+    colors = list((RdBu[9]))
     exp_cmap = LinearColorMapper(palette=colors, low = -1, high = 1)
     p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width=700, 
                plot_height=450, 
