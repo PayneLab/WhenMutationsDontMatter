@@ -1,0 +1,26 @@
+LINE 205 : 2020-05-11 11:25:29,145 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-11 11:25:29,281 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 336 : 2020-05-11 11:25:29,347 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 354 : 2020-05-11 11:25:29,348 [DEBUG   ] Start Enrichr using library: KEGG_2016
+LINE 355 : 2020-05-11 11:25:29,348 [INFO    ] Analysis name: Tumor_partition, Enrichr Library: KEGG_2016
+LINE 205 : 2020-05-11 11:25:29,350 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-11 11:25:29,542 [DEBUG   ] http://amp.pharm.mssm.edu:80 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 205 : 2020-05-11 11:25:30,546 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-11 11:25:30,710 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/export?userListId=27573641&filename=KEGG_2016.Tumor_partition.reports&backgroundType=KEGG_2016 HTTP/1.1" 200 3812
+LINE 363 : 2020-05-11 11:25:30,717 [INFO    ] Save file of enrichment results: Job Id:324fc6dd88fee2b19b1c67709b7bd92c
+LINE 372 : 2020-05-11 11:25:30,721 [WARNING ] Warning: No enrich terms using library KEGG_2016 when cutoff = 0.05
+LINE 373 : 2020-05-11 11:25:30,722 [INFO    ] Done.
+
+LINE 205 : 2020-05-11 11:25:54,919 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-11 11:25:55,055 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 336 : 2020-05-11 11:25:55,121 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 354 : 2020-05-11 11:25:55,122 [DEBUG   ] Start Enrichr using library: KEGG_2016
+LINE 355 : 2020-05-11 11:25:55,122 [INFO    ] Analysis name: Tumor_partition, Enrichr Library: KEGG_2016
+LINE 205 : 2020-05-11 11:25:55,124 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-11 11:25:55,303 [DEBUG   ] http://amp.pharm.mssm.edu:80 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 205 : 2020-05-11 11:25:56,309 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-11 11:25:56,454 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/export?userListId=27573645&filename=KEGG_2016.Tumor_partition.reports&backgroundType=KEGG_2016 HTTP/1.1" 200 3812
+LINE 363 : 2020-05-11 11:25:56,460 [INFO    ] Save file of enrichment results: Job Id:af855baaaacd7755b9be11631aec5078
+LINE 372 : 2020-05-11 11:25:56,464 [WARNING ] Warning: No enrich terms using library KEGG_2016 when cutoff = 0.05
+LINE 373 : 2020-05-11 11:25:56,465 [INFO    ] Done.
+
