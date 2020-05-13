@@ -58,6 +58,7 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
         p.yaxis.axis_label = y_axis_lab
 
     bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
+    p.add_layout(bar, "right")
     if show_plot:
         output_notebook()
         show(p)
