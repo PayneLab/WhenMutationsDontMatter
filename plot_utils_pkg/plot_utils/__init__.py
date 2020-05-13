@@ -35,9 +35,8 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
     # circle_var designed for pvalues. Normalized by taking log 10 of values and multiplying by 5 
     #added a new column to make the plot size
     
-    df["size"] = (np.log10(df[circle_var]))
-    df["size"] = np.abs(df["size"])
-    df['size'] = np.where(df["size"]<0, np.abs(df["size"]), (df["size"]))*5
+    df["size2"] = df[circle_var].apply(lambda x: -1*(np.log(x)))
+    df['size'] = (df["size2"])*1.5
     maxval = df[color_var].max()
     minval = df[color_var].min()
     colors = list((RdBu[9]))
