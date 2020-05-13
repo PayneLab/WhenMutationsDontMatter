@@ -30,7 +30,7 @@ and columns for circle size and color gradient.
 This function creates a bokeh map that is heat map with extra variable of size of the circles. 
 
 '''
-def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 1000, plot_height = 650, x_axis_lab = "no_label", y_axis_lab = "no_label"):
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 1000, plot_height = 650, x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png"):
   
     # circle_var designed for pvalues. Normalized by taking log 10 of values and multiplying by 5 
     #added a new column to make the plot size
@@ -59,9 +59,12 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
         p.yaxis.axis_label = y_axis_lab
 
     bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
-    p.add_layout(bar, "right")
-    output_notebook()
-    show(p)
+    if show_plot:
+        output_notebook()
+        show(p)
+      
+    if save_png != "plot.png":
+        export_png(p, filename= save_png)
 
 import pandas as pd
 import seaborn as sns
