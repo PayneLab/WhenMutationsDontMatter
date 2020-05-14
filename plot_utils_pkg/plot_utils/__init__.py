@@ -38,7 +38,7 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
     #added a new column to make the plot size
     
     df["size2"] = df[circle_var].apply(lambda x: -1*(np.log(x)))
-    df['size'] = (df["size2"])*1.5
+    df['size'] = (df["size2"])*3
     #find values to set color bar min/ max as 
     maxval = df[color_var].max()
     minval = df[color_var].min()
