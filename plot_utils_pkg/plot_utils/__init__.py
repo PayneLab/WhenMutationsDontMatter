@@ -24,8 +24,10 @@ and columns for circle size and color gradient.
 @Param y_axis String. Name of column for y-axis categorical labels
 @Param x_axis_lab. String. Default is no label. 
 @Param y_axis_lab. String. Default is no label. 
-@Param plot_width. Default is 1000
+@Param plot_width. Default is 10000
 @Param plot_heigh. Default is 650.
+@Param save_png. Default is to not save a png file. To save file, set save_png to the name (string) you would like to save the file as. *NOTE* inorder to use this function you must download phantomjs onto computer by using conda install phantomjs
+
 
 This function creates a bokeh map that is heat map with extra variable of size of the circles. 
 
@@ -37,8 +39,13 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
     
     df["size2"] = df[circle_var].apply(lambda x: -1*(np.log(x)))
     df['size'] = (df["size2"])*1.5
+    #find values to set color bar min/ max as 
     maxval = df[color_var].max()
     minval = df[color_var].min()
+    if maxval > abs(minval):
+        minval = maxval * -1 
+    if maxval < abs(minval):
+        maxval = minval * -1
     colors = list((RdBu[9]))
     exp_cmap = LinearColorMapper(palette=colors, low = minval, high = maxval)
     p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width= plot_width, 
