@@ -264,7 +264,7 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
         #dropna will remove rows with nan
         df_subset = df_subset.dropna(axis=0, how="any")
         count_row = df_subset.shape[0]
-        if count_row > 20:
+        if count_row > 30:
             x1 = df_subset[[label_column]].values
             y1 = df_subset[[gene]].values
             x1 = x1[:,0]
