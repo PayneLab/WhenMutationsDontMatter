@@ -9331,3 +9331,51 @@ LINE 701 : 2020-05-22 17:22:06,198 [DEBUG   ] Embedding font /Users/Lindsey/anac
 LINE 708 : 2020-05-22 17:22:06,199 [DEBUG   ] Writing TrueType font.
 LINE 373 : 2020-05-22 17:22:06,216 [INFO    ] Done.
 
+LINE 205 : 2020-05-22 17:42:28,000 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-22 17:42:28,327 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 336 : 2020-05-22 17:42:28,418 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 354 : 2020-05-22 17:42:28,419 [DEBUG   ] Start Enrichr using library: KEGG_2016
+LINE 355 : 2020-05-22 17:42:28,419 [INFO    ] Analysis name: Tumor_partition, Enrichr Library: KEGG_2016
+LINE 205 : 2020-05-22 17:42:28,421 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-22 17:42:30,500 [DEBUG   ] http://amp.pharm.mssm.edu:80 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 205 : 2020-05-22 17:42:31,507 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-22 17:42:32,774 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/export?userListId=27822394&filename=KEGG_2016.Tumor_partition.reports&backgroundType=KEGG_2016 HTTP/1.1" 200 None
+LINE 363 : 2020-05-22 17:42:32,972 [INFO    ] Save file of enrichment results: Job Id:6c6f3c80c1fb8b33adeb8f8c2a47b77d
+LINE 651 : 2020-05-22 17:42:33,044 [DEBUG   ] Assigning font /b'F1' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+LINE 651 : 2020-05-22 17:42:33,199 [DEBUG   ] Assigning font /b'F2' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf'
+LINE 701 : 2020-05-22 17:42:33,223 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf.
+LINE 708 : 2020-05-22 17:42:33,224 [DEBUG   ] Writing TrueType font.
+LINE 701 : 2020-05-22 17:42:33,233 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+LINE 708 : 2020-05-22 17:42:33,234 [DEBUG   ] Writing TrueType font.
+LINE 651 : 2020-05-22 17:42:33,313 [DEBUG   ] Assigning font /b'F1' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+LINE 651 : 2020-05-22 17:42:33,332 [DEBUG   ] Assigning font /b'F2' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf'
+LINE 701 : 2020-05-22 17:42:33,370 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf.
+LINE 708 : 2020-05-22 17:42:33,370 [DEBUG   ] Writing TrueType font.
+LINE 701 : 2020-05-22 17:42:33,384 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+LINE 708 : 2020-05-22 17:42:33,384 [DEBUG   ] Writing TrueType font.
+LINE 373 : 2020-05-22 17:42:33,400 [INFO    ] Done.
+
+LINE 205 : 2020-05-22 17:42:44,235 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-22 17:42:44,449 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 336 : 2020-05-22 17:42:44,538 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 354 : 2020-05-22 17:42:44,539 [DEBUG   ] Start Enrichr using library: KEGG_2016
+LINE 355 : 2020-05-22 17:42:44,539 [INFO    ] Analysis name: Tumor_partition, Enrichr Library: KEGG_2016
+LINE 205 : 2020-05-22 17:42:44,541 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-22 17:42:48,418 [DEBUG   ] http://amp.pharm.mssm.edu:80 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 205 : 2020-05-22 17:42:49,423 [DEBUG   ] Starting new HTTP connection (1): amp.pharm.mssm.edu:80
+LINE 393 : 2020-05-22 17:42:50,980 [DEBUG   ] http://amp.pharm.mssm.edu:80 "GET /Enrichr/export?userListId=27822395&filename=KEGG_2016.Tumor_partition.reports&backgroundType=KEGG_2016 HTTP/1.1" 200 None
+LINE 363 : 2020-05-22 17:42:51,172 [INFO    ] Save file of enrichment results: Job Id:f8c835d4836a6df6a31dd2a3a86ac7e2
+LINE 651 : 2020-05-22 17:42:51,228 [DEBUG   ] Assigning font /b'F1' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+LINE 651 : 2020-05-22 17:42:51,241 [DEBUG   ] Assigning font /b'F2' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf'
+LINE 701 : 2020-05-22 17:42:51,258 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf.
+LINE 708 : 2020-05-22 17:42:51,258 [DEBUG   ] Writing TrueType font.
+LINE 701 : 2020-05-22 17:42:51,266 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+LINE 708 : 2020-05-22 17:42:51,267 [DEBUG   ] Writing TrueType font.
+LINE 651 : 2020-05-22 17:42:51,324 [DEBUG   ] Assigning font /b'F1' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+LINE 651 : 2020-05-22 17:42:51,335 [DEBUG   ] Assigning font /b'F2' = '/Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf'
+LINE 701 : 2020-05-22 17:42:51,353 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf.
+LINE 708 : 2020-05-22 17:42:51,353 [DEBUG   ] Writing TrueType font.
+LINE 701 : 2020-05-22 17:42:51,361 [DEBUG   ] Embedding font /Users/Lindsey/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+LINE 708 : 2020-05-22 17:42:51,361 [DEBUG   ] Writing TrueType font.
+LINE 373 : 2020-05-22 17:42:51,371 [INFO    ] Done.
+
