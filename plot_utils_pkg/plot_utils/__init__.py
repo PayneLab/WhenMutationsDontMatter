@@ -145,6 +145,8 @@ def binary_val_plot(plot_df, val, x_axis_col, y_axis_col, title, pathway_cols = 
     # Set scale of x and y axis
     if val == 'corr':
         axes = {'x_low': -1.5, 'x_high': 1.5, 'y_low': -1.5, 'y_high': 1.5}
+    if val == 'narrow_corr':
+        axes = {'x_low': -.7, 'x_high': .7, 'y_low': -.7, 'y_high': .7}
     elif val == 'pval':
         all_pvals.set_xscale('log')
         all_pvals.set_yscale('log')
