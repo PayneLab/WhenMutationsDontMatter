@@ -14,32 +14,35 @@ from bokeh.io import output_notebook
 from bokeh.io import export_png
 from bokeh.io import export_svgs
 
-
 '''
 @Param df: Dataframe. Contains column with x-axis categorical variables, y-axis categorical variables,
 and columns for circle size and color gradient. 
-@Param circle_var. String. Name of column for numeric data to base circle size off of 
-@Param color_var. String. Name of column of numeric data to base color gradient off of. Can be the same or different as circle_var
+@Param circle_var. String. Name of column for numeric data to base circle size off of. Designed for p_values. 
+@Param color_var. String. Name of column of numeric data to base color gradient off of. Designed for correlation value or difference in medians
 @Param x_axis String. Name of column for x-axis categorical labels
 @Param y_axis String. Name of column for y-axis categorical labels
 @Param x_axis_lab. String. Default is no label. 
 @Param y_axis_lab. String. Default is no label. 
+@Param plot_width. Default is 1000
+@Param plot_heigh. Default is 650.
 
 This function creates a bokeh map that is heat map with extra variable of size of the circles. 
 
 '''
-def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "no_label", y_axis_lab = "no_label"):
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 1000, plot_height = 650, x_axis_lab = "no_label", y_axis_lab = "no_label"):
   
-
-
+    # circle_var designed for pvalues. Normalized by taking log 10 of values and multiplying by 5 
     #added a new column to make the plot size
-    df['size'] = np.where(df[circle_var]<0, np.abs(df[circle_var]), df[circle_var])*50
- 
-
+    
+    df["size"] = (np.log10(df[circle_var]))
+    df["size"] = np.abs(df["size"])
+    df['size'] = np.where(df["size"]<0, np.abs(df["size"]), (df["size"]))*5
+    maxval = df[color_var].max()
+    minval = df[color_var].min()
     colors = list((RdBu[9]))
-    exp_cmap = LinearColorMapper(palette=colors, low = -1, high = 1)
-    p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width=700, 
-               plot_height=450, 
+    exp_cmap = LinearColorMapper(palette=colors, low = minval, high = maxval)
+    p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width= plot_width, 
+               plot_height=plot_height, 
                toolbar_location=None, tools="hover")
 
     p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size", 
@@ -57,7 +60,6 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,x_axis_lab = "
     bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
     p.add_layout(bar, "right")
     output_notebook()
-  
     show(p)
 
 
@@ -262,7 +264,7 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
         #dropna will remove rows with nan
         df_subset = df_subset.dropna(axis=0, how="any")
         count_row = df_subset.shape[0]
-        if count_row > 20:
+        if count_row > 30:
             x1 = df_subset[[label_column]].values
             y1 = df_subset[[gene]].values
             x1 = x1[:,0]
