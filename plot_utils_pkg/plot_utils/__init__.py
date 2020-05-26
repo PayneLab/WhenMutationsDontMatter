@@ -85,10 +85,12 @@ import matplotlib.pyplot as plt
      specified with boolean variables (True = is in the group). Each pathway  
      column will become another scatterplot. 
        NOTE: Column names will be used as titles for the pathway plots.
-     
+       
 @Param val:
-    String. "corr": Correlation values
+    String. "corr": Correlation values 
             "pval": p-values
+            "median": difference in medians
+            This parameter specifies the scale of the plot
     
 @Param x_axis_col:
     String. Column label to plot on the x-axis.
@@ -97,7 +99,7 @@ import matplotlib.pyplot as plt
     String. Column label to plot on the y-axis.
     
 @Param plot_pathways:
-    List. Contains the column names of the pathway columns.
+    List. Contains the column names containing pathway boolean values.
     
 @Param hue_col:
     String. Column label to base hue color.
@@ -105,6 +107,9 @@ import matplotlib.pyplot as plt
 @Param hue_dict:
     Dictionary. A dictionary with values from the hue_col as keys 
     and chosen colors for the plot as values. 
+    
+@Param narrow:
+    Float. Limit of the graph scale. Can be a positive or negative float. 
 
 @Param save_file_name:
     String. Optional to save the figure. The name of the file to
@@ -125,7 +130,7 @@ plot for each column included in path_df.
 
 
 def binary_val_plot(plot_df, val, x_axis_col, y_axis_col, title, pathway_cols = None, hue_col=None, 
-                    color_dict = None, save_file_name=None):
+                    color_dict = None, narrow = 0, save_file_name=None):
     
     f = plt.figure(figsize=(12, 12))
     gs = f.add_gridspec(2, 2)
@@ -143,14 +148,19 @@ def binary_val_plot(plot_df, val, x_axis_col, y_axis_col, title, pathway_cols = 
     plt.ylabel(y_axis_col)
     
     # Set scale of x and y axis
-    if val == 'corr':
-        axes = {'x_low': -1.5, 'x_high': 1.5, 'y_low': -1.5, 'y_high': 1.5}
-    if val == 'narrow_corr':
-        axes = {'x_low': -.7, 'x_high': .7, 'y_low': -.7, 'y_high': .7}
-    elif val == 'pval':
-        all_pvals.set_xscale('log')
-        all_pvals.set_yscale('log')
-        axes = {'x_low': 1e-5, 'x_high': 1e0, 'y_low': 1e-5, 'y_high': 1e0}
+    if narrow != 0:
+        n = np.abs(narrow)
+        axes = {'x_low': -1*n, 'x_high': n, 'y_low': -1*n, 'y_high': n}
+    else:
+        if val == 'median':
+            axes = {'x_low': -1.5, 'x_high': 1.5, 'y_low': -1.5, 'y_high': 1.5}
+        elif val == 'corr':
+            axes = {'x_low': -1, 'x_high': 1, 'y_low': -1, 'y_high': 1}
+        elif val == 'pval':
+            all_pvals.set_xscale('log')
+            all_pvals.set_yscale('log')
+            axes = {'x_low': 1e-5, 'x_high': 1e0, 'y_low': 1e-5, 'y_high': 1e0}
+
     plt.xlim(axes['x_low'], axes['x_high']) 
     plt.ylim(axes['y_low'], axes['y_high'])
     
@@ -185,7 +195,6 @@ def binary_val_plot(plot_df, val, x_axis_col, y_axis_col, title, pathway_cols = 
     plt.clf()
     plt.close()
     return 0
-
 
 import pandas as pd
 import scipy.stats
