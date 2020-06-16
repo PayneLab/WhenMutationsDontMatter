@@ -1,4 +1,5 @@
 import pandas as pd
+import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 import math as math
@@ -10,9 +11,8 @@ from bokeh.palettes import RdBu
 from bokeh.models import LinearColorMapper, ColumnDataSource, ColorBar
 from bokeh.models.ranges import FactorRange
 from bokeh.plotting import figure, show
-from bokeh.io import output_notebook
-from bokeh.io import export_png
-from bokeh.io import export_svgs
+from bokeh.io import output_notebook, export_png, export_svgs
+from bokeh.layouts import row
 
 
 '''
@@ -66,16 +66,85 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
 
     bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
     p.add_layout(bar, "right")
+    
+    # Create Circle Legend
+    circle_legend = create_circle_legend(df, circle_var, color_var)
+    
     if show_plot:
         output_notebook()
-        show(p)
+        show(row(p, circle_legend))
       
     if save_png != "plot.png":
         export_png(p, filename= save_png)
+             
+        
+'''
+@Param df: Dataframe. Same as df passed to plotCircleHeatMap.
+@Param lowest_pval: Float. Lowest p-value to include in the legend.
+@Param highest_pval: Float. Highest p-value to include in the legend.
 
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+Returns: df to be used in creating the circle legend. 
+'''
+
+def create_circle_legend_df(lowest_pval = 1e-6, highest_pval = .01):
+    lowest_pval_str = "{:.1e}".format(lowest_pval, '.2f')
+    med_pval_str = "{:.1e}".format(lowest_pval * float(100), '.2f')
+    highest_pval_str = "{:.1e}".format(highest_pval, '.2f')
+    
+    data = {'P_Value':  [lowest_pval, (lowest_pval * float(100)), highest_pval],
+            'y_axis': [lowest_pval_str, med_pval_str, highest_pval_str],
+            'x_axis': ['', '', ''],
+            'Medians': [1.5, 1.5, 1.5]}
+
+    fake_df = pd.DataFrame (data, columns = ['x_axis', 'y_axis', 'P_Value', 'Medians'])
+    
+    fake_df["size2"] = fake_df['P_Value'].apply(lambda x: -1*(np.log(x)))
+    fake_df['size'] = (fake_df["size2"])*3
+    
+    return fake_df
+
+'''
+@Param df: Dataframe. Same as df passed to plotCircleHeatMap.
+@Param circle_var: Column Label. Same as passed to plotCircleHeatMap.
+@Param color_var: Column Label. Same as passed to plotCircleHeatMap.
+@Param x_axis: Column Label. Used on the x-axis.
+@Param y_axis: Column Label. Used on the y-axis.
+@Param lowest_pval: Float. Lowest p-value to include in the legend.
+@Param highest_pval: Float. Highest p-value to include in the legend.
+
+Returns: df to be used in creating the circle legend. 
+'''
+
+def create_circle_legend(df, circle_var, color_var, x_axis = 'x_axis', y_axis = 'y_axis', 
+                         lowest_pval = 1e-6, highest_pval = .01, plot_height = 200, plot_width = 120):
+    # Use the smallest pval
+    if df[circle_var].min() < lowest_pval:
+        lowest_pval = df[circle_var].min()
+    circle_df = create_circle_legend_df(lowest_pval, highest_pval)
+    
+    maxval = circle_df[color_var].max()
+    minval = circle_df[color_var].min()
+    if maxval > abs(minval):
+        minval = maxval * -1 
+    if maxval < abs(minval):
+        maxval = minval * -1
+    colors = list((RdBu[9]))
+    exp_cmap = LinearColorMapper(palette=colors, low = minval, high = maxval)
+    
+    circle = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width= plot_width, 
+               plot_height=plot_height, toolbar_location=None, tools="hover")
+
+    circle.scatter(x_axis, y_axis, source = circle_df, fill_alpha=1,  line_width=0, size="size", 
+              fill_color={"field":color_var, "transform":exp_cmap})
+    
+    circle.x_range.factors = sorted(circle_df[x_axis].unique().tolist())
+    circle.y_range.factors = sorted(circle_df[y_axis].unique().tolist(), reverse = False)
+    circle.xaxis.major_label_orientation = math.pi/2
+    
+    circle.xaxis.axis_label = 'FDR P-Values'
+    
+    return circle
+      
 
 '''
 @Param plot_df:
