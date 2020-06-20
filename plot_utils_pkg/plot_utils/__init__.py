@@ -86,7 +86,7 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
 Returns: df to be used in creating the circle legend. 
 '''
 
-def create_circle_legend_df(lowest_pval = 1e-6, highest_pval = .01):
+def create_circle_legend_df(lowest_pval = 1e-6, highest_pval = .05):
     lowest_pval_str = "{:.1e}".format(lowest_pval, '.2f')
     med_pval_str = "{:.1e}".format(lowest_pval * float(100), '.2f')
     highest_pval_str = "{:.1e}".format(highest_pval, '.2f')
@@ -116,7 +116,7 @@ Returns: df to be used in creating the circle legend.
 '''
 
 def create_circle_legend(df, circle_var, color_var, x_axis = 'x_axis', y_axis = 'y_axis', 
-                         lowest_pval = 1e-6, highest_pval = .01, plot_height = 200, plot_width = 120):
+                         lowest_pval = 1e-6, highest_pval = .05, plot_height = 200, plot_width = 120):
     # Use the smallest pval
     if df[circle_var].min() < lowest_pval:
         lowest_pval = df[circle_var].min()
