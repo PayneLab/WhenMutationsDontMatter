@@ -338,6 +338,7 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
     '''Correct for multiple testing to determine if each comparison meets the new cutoff'''
     results = statsmodels.stats.multitest.multipletests(pvals=pvals, alpha=alpha, method=correction_method)
     reject = results[0]
+    corrected_pval = results[1]
 
     if return_all:
         for i in range(0,len(comparisons)):
@@ -347,7 +348,7 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
     if (return_all == False):
             for i in range(0, len(reject)):
                 if reject[i]:
-                    newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
+                    newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i], correction_method +"_p_val": corrected_pval[i]}, ignore_index=True)
 
     '''Sort dataframe by ascending p-value'''
     newdf = newdf.sort_values(by='P_value', ascending=True)
