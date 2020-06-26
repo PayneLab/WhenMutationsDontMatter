@@ -299,7 +299,7 @@ https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipl
 
 This function will return a data frame with the columns comparison, the correlation coefficient, and the p value.
 '''
-def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni',return_all = True):
+def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni',return_all = True, return_corrected_pvals = False):
 
 
     #df = df.dropna(axis=1, how="all")
@@ -315,7 +315,8 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
 
 
     '''Format results in a pandas dataframe'''
-    newdf = pd.DataFrame(columns=['Comparison','Correlation','P_value'])
+    
+    newdf = pd.DataFrame()
     for gene in comparison_columns:
         #create subset df with interacting gene/ gene (otherwise drop NaN drops everything)
         df_subset = df[[label_column,gene]]
@@ -341,17 +342,28 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
     corrected_pval = results[1]
 
     if return_all:
-        for i in range(0,len(comparisons)):
-            newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
+        if return_corrected_pvals:
+            for i in range(0,len(comparisons)):
+                newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i], "P_value": corrected_pval[i]}, ignore_index=True)
+                  
+        if return_corrected_pvals == False:
+            for i in range(0,len(comparisons)):
+                newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
 
     '''Else only add significant comparisons'''
     if (return_all == False):
+        
+        if return_corrected_pvals:
             for i in range(0, len(reject)):
                 if reject[i]:
-                    newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i], correction_method +"_p_val": corrected_pval[i]}, ignore_index=True)
-
-    '''Sort dataframe by ascending p-value'''
-    newdf = newdf.sort_values(by='P_value', ascending=True)
+                    newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],"P_value": corrected_pval[i]}, ignore_index=True)
+        if return_corrected_pvals == False:
+                for i in range(0, len(reject)):
+                    if reject[i]:
+                        newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],"P_value": pvals[i]}, ignore_index=True)
+    
+    
+    newdf = newdf.sort_values(by= 'P_value', ascending=True)
     '''If results df is not empty, return it, else return None'''
     return newdf
 
