@@ -472,22 +472,22 @@ def figure1_plot_mutations(dflist = None, names_of_df=None, title=None, save_to_
     #Now plot it using arrays
     width = 0.1
     x = np.arange(len(allLabels))
-    a4_dims = (25, 13) #dimensions for bigger plot
+    a4_dims = (40, 25) #dimensions for bigger plot
     fig, ax = plt.subplots(figsize=a4_dims)
     for position in range(0, number_of_df):
         r = ax.bar(x+(width*position), frequencies_for_each_df[position], width,label=names_of_df[position], alpha=.5, linewidth=0)
 
 
 
-    ax.set_ylabel('Percent Sample', size = 20)
+    ax.set_ylabel('Percent Sample', size = 60)
     ax.set_title(title)
     ax.set_xticks(x)
     ax.set_xticklabels(allLabels)
     ax.legend()
-    ax.set_xticklabels(allLabels, size = 20)
+    ax.set_xticklabels(allLabels, size = 60)
     ax.set_ylim(0,100)
-    ax.legend(prop={'size': 20})
-    ax.yaxis.set_tick_params(labelsize=17)
+    ax.legend(prop={'size': 50})
+    ax.yaxis.set_tick_params(labelsize=60)
 
 
     plt.setp(ax.get_xticklabels(),rotation= 45)
