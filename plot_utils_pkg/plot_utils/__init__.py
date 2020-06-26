@@ -479,17 +479,21 @@ def figure1_plot_mutations(dflist = None, names_of_df=None, title=None, save_to_
 
 
 
-    ax.set_ylabel('Percent Sample')
+    ax.set_ylabel('Percent Sample', size = 20)
     ax.set_title(title)
     ax.set_xticks(x)
     ax.set_xticklabels(allLabels)
     ax.legend()
+    ax.set_xticklabels(allLabels, size = 20)
+    ax.set_ylim(0,100)
+    ax.legend(prop={'size': 20})
+    ax.yaxis.set_tick_params(labelsize=17)
 
 
-
-    plt.setp(ax.get_xticklabels(),rotation='vertical')
+    plt.setp(ax.get_xticklabels(),rotation= 45)
+    plt.tight_layout()
     if save_to_path == None:
-        plt.savefig("step_1.png")
+        plt.savefig("step_1.png",dpi = 300)
     else:
         plt.savefig(save_to_path)
 
