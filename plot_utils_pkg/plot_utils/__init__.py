@@ -26,13 +26,14 @@ and columns for circle size and color gradient.
 @Param y_axis_lab. String. Default is no label. 
 @Param plot_width. Default is 10000
 @Param plot_heigh. Default is 650.
+@Param font_size. Int. Default is 12pt.
 @Param save_png. Default is to not save a png file. To save file, set save_png to the name (string) you would like to save the file as. *NOTE* inorder to use this function you must download phantomjs onto computer by using conda install phantomjs
 
 
 This function creates a bokeh map that is heat map with extra variable of size of the circles. 
 
 '''
-def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1000, plot_height = 650, x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png", legend_min = 1e-6, legend_max = 0.01):
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1000, plot_height = 650, font_size = 12, x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png", legend_min = 1e-6, legend_max = 0.01):
   
     # circle_var designed for pvalues. Normalized by taking log 10 of values and multiplying by 5 
     #added a new column to make the plot size
@@ -59,9 +60,12 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
     p.y_range.factors = sorted(df[y_axis].unique().tolist(), reverse = True)
     p.xaxis.major_label_orientation = math.pi/2
     
+    # font size
+    p.axis.major_label_text_font_size = str(font_size)+"pt"
+    
     if (x_axis_lab != "no_label" ):
         p.xaxis.axis_label = x_axis_lab
-    if (x_axis_lab != "no_label" ):   
+    if (y_axis_lab != "no_label" ):   
         p.yaxis.axis_label = y_axis_lab
 
     bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
@@ -75,7 +79,7 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
         show(row(p, circle_legend))
       
     if save_png != "plot.png":
-        export_png(p, filename= save_png, dpi=300)
+        export_png(row(p, circle_legend), filename= save_png)
              
         
 '''
