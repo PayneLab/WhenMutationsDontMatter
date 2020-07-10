@@ -6,3 +6,7 @@ WhenMutationsDontMatter/EGFR/Make_EGFR_Fig_2/Pval_corr_table_Fig_2_return_all_ap
 EGFR/Make_EGFR_Fig_1C/Pval_corr_table_Fig_1C_suppl_table2.csv
 EGFR/Make_EGFR_Fig_2/Pval_corr_table_Fig_2_return_sig.csv
 EGFR/Make_EGFR_Fig_2/Pval_corr_table_Fig_2_return_sig_append.csv
+EGFR/Adaptive_Immune_trans_effects.csv
+EGFR/Bcell_signaling_trans_effects.csv
+EGFR/Innate_Immune_trans_effects.csv
+EGFR/Tcell_signaling_trans_effects.csv
