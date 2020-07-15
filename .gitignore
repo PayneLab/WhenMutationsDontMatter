@@ -11,3 +11,6 @@ EGFR/Bcell_signaling_trans_effects.csv
 EGFR/Innate_Immune_trans_effects.csv
 EGFR/Tcell_signaling_trans_effects.csv
 *.csv
+PTEN\Figure_2\csv\Hnscc_pval_medians.csv
+PTEN\Figure_2\csv\Lscc_pval_medians.csv
+PTEN\Figure_2\csv
