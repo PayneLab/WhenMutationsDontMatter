@@ -405,39 +405,72 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
 @Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values.
 @Param y_axis:String. Used as the label for the y-axis as well as the column name for the y-axis values.
 @Param title: String. Used as title of figure
-@Param ra_stats: Boolean. Defalt is False. If true it will print out the linear regression stats.
-@Param show_plot: Boolean. Defalt is True. If true it will show the linear regression plot.
+@Param ra_stats: Boolean. Default is False. If true it will print out the pearson correlation and p-value.
+@Param x_coor: Float.  Default is 1.0. Is the x coordinate where the pearson correlation and p-value will print. 
+@Param y_coor: Float.  Default is 1.0. Is the y coordinate where the pearson correlation and p-value will print. 
+@Param show_plot: Boolean. Default is True. If true it will show the linear regression plot.
 @Param save_file_name: String.File will not be saved unless a file name is specified. Plot is saved in current directory as png.
 
-This fuction takes a dataframe with numeric values (such as proteomics) and performs a linear regression analysis between two user specified columns within the dataframe. The function will then create the linear regression graph and can print the graph to the screen and save the figure depending on user input.
+This fuction takes a dataframe with numeric values (such as proteomics) and performs a pearson coorelation analysis between two user specified columns within the dataframe. The function will then create the perason coorelation graph and can print the graph to the screen and save the figure depending on user input.
 '''
+def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, save_file_name = "file_name"):
+    #format dfs 
+    if hue != "none":   
+      
+        df1_subset = df1[[x_axis,y_axis,hue]]
+        df1_subset = df1_subset.dropna(axis=0, how="any")
+        count_row = df1_subset.shape[0]
+        if count_row > 30:
+            x1 = df1_subset[[x_axis]].values
+            y1 = df1_subset[[y_axis]].values
+            x1 = x1[:,0]
+            y1 = y1[:,0]
+            corr, pval = scipy.stats.pearsonr(x1,y1)
 
+            sns.set(style="darkgrid")
+            plt.rcParams["figure.figsize"] = (30,22)
+            graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, hue= hue, fit_reg=False)
+            sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
+            graph.set(title = title)
+        else:
+            return 0
 
-def plot_lin_regression(df1,x_axis, y_axis, title, ra_stats = False, show_plot = True, save_file_name = "file_name" ):
-    #subset df to have just the x and y axis specified
-    df1_subset = df1[[x_axis,y_axis]]
-    #drop na values. Can't have in linear regression
-    df1_subset = df1_subset.dropna(axis=0, how="any")
+    if hue == "none":
+        
+        df1_subset = df1[[x_axis,y_axis]]
+        df1_subset = df1_subset.dropna(axis=0, how="any")
+        count_row = df1_subset.shape[0]
+        if count_row > 30:
+            x1 = df1_subset[[x_axis]].values
+            y1 = df1_subset[[y_axis]].values
+            x1 = x1[:,0]
+            y1 = y1[:,0]
+            corr, pval = scipy.stats.pearsonr(x1,y1)
 
-    x1 = df1_subset[[x_axis]].values
-    y1 = df_gbm_subset[[y_axis]].values
-    x1 = x1[:,0]
-    y1 = y1[:,0]
+            sns.set(style="darkgrid")
+            graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, fit_reg=False)
+            sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
+            plt.title(label = title, fontsize = 30)
+            plt.xlabel(x_axis, fontsize=20)
+            plt.ylabel( y_axis, fontsize=20)
+            plt.xticks(fontsize = 17)
+            plt.yticks(fontsize = 17)
+        else:
+            return 0
 
-    slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(x1,y1)
     if ra_stats:
-        print ('Slope of regression: %s\nR-squared: %s\nP-value: %s'%(slope, r_value**2, p_value))
-
-    sns.set(style="darkgrid")
-    plot = sns.regplot(x=x1, y=y1, data=df1)
-    plot.set(xlabel=x_axis, ylabel=y_axis, title=title)
+        pval = myTrunc(pval,5)
+        corr = myTrunc(corr,3)
+        plt.text(x_coor,y_coor, "Correlation: %s\nPvalue: %s"%(corr,pval), fontsize = 17)
+        
+    if save_file_name != "file_name":
+        plt.tight_layout()
+        plt.subplots_adjust(top=0.88)
+        plt.savefig(save_file_name+'.png', dpi = 300)
     if show_plot:
         plt.show()
         plt.clf()
         plt.close()
-
-    if save_file_name != "file_name":
-        plt.savefig(save_file_name+'.png')
 
 
 '''
