@@ -397,23 +397,31 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
     newdf = newdf.sort_values(by= 'P_value', ascending=True)
     '''If results df is not empty, return it, else return None'''
     return newdf
-
-
+'''
+@Param theNumber: Float. Is the number that needs to be truncated
+@Param myDigits: Float. Is how many decimal place values that should be truncated
 
 '''
-@Param df1: Dataframe. Contains numeric values (such as proteomics) for linear regression
+def myTrunc(theNumber, theDigits):
+
+    myDigits = 10 ** theDigits
+    return (int(theNumber * myDigits) / myDigits)
+
+'''
+@Param df1: Dataframe. Contains numeric values (such as proteomics) for pearson correlation 
 @Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values.
 @Param y_axis:String. Used as the label for the y-axis as well as the column name for the y-axis values.
 @Param title: String. Used as title of figure
 @Param ra_stats: Boolean. Default is False. If true it will print out the pearson correlation and p-value.
 @Param x_coor: Float.  Default is 1.0. Is the x coordinate where the pearson correlation and p-value will print. 
 @Param y_coor: Float.  Default is 1.0. Is the y coordinate where the pearson correlation and p-value will print. 
+@Param pval_trunc: Int. Default is 5. Is how many decimal place values that should be truncated.
 @Param show_plot: Boolean. Default is True. If true it will show the linear regression plot.
 @Param save_file_name: String.File will not be saved unless a file name is specified. Plot is saved in current directory as png.
 
-This fuction takes a dataframe with numeric values (such as proteomics) and performs a pearson coorelation analysis between two user specified columns within the dataframe. The function will then create the perason coorelation graph and can print the graph to the screen and save the figure depending on user input.
+This fuction takes a dataframe with numeric values (such as proteomics) and performs a pearson correlation analysis between two user specified columns within the dataframe. The function will then create the perason correlation graph and can print the graph to the screen and save the figure depending on user input.
 '''
-def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, save_file_name = "file_name"):
+def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, pval_trunc = 5 , save_file_name = "file_name"):
     #format dfs 
     if hue != "none":   
       
@@ -459,7 +467,7 @@ def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False,
             return 0
 
     if ra_stats:
-        pval = myTrunc(pval,5)
+        pval = myTrunc(pval,pval_trunc)
         corr = myTrunc(corr,3)
         plt.text(x_coor,y_coor, "Correlation: %s\nPvalue: %s"%(corr,pval), fontsize = 17)
         
