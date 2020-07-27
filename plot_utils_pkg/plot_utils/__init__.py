@@ -26,13 +26,14 @@ and columns for circle size and color gradient.
 @Param y_axis_lab. String. Default is no label. 
 @Param plot_width. Default is 10000
 @Param plot_heigh. Default is 650.
+@Param font_size. Int. Default is 12pt.
 @Param save_png. Default is to not save a png file. To save file, set save_png to the name (string) you would like to save the file as. *NOTE* inorder to use this function you must download phantomjs onto computer by using conda install phantomjs
 
 
 This function creates a bokeh map that is heat map with extra variable of size of the circles. 
 
 '''
-def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 1000, plot_height = 650, x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png"):
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1000, plot_height = 650, font_size = 12, x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png", legend_min = 1e-6, legend_max = 0.01, show_legend = True):
   
     # circle_var designed for pvalues. Normalized by taking log 10 of values and multiplying by 5 
     #added a new column to make the plot size
@@ -55,48 +56,75 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis,plot_width= 10
     p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size", 
               fill_color={"field":color_var, "transform":exp_cmap})
 
-    p.x_range.factors = sorted(df[x_axis].unique().tolist())
+    #p.x_range.factors = sorted(df[x_axis].unique().tolist())
+    p.x_range.factors = df[x_axis].unique().tolist()
     p.y_range.factors = sorted(df[y_axis].unique().tolist(), reverse = True)
     p.xaxis.major_label_orientation = math.pi/2
     
+    # font size
+    p.axis.major_label_text_font_size = str(font_size)+"pt"
+    
     if (x_axis_lab != "no_label" ):
         p.xaxis.axis_label = x_axis_lab
-    if (x_axis_lab != "no_label" ):   
+    if (y_axis_lab != "no_label" ):   
         p.yaxis.axis_label = y_axis_lab
 
     bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
     p.add_layout(bar, "right")
     
     # Create Circle Legend
-    circle_legend = create_circle_legend(df, circle_var, color_var)
+    circle_legend = create_circle_legend(df, circle_var, color_var, legend_min, legend_max)
     
-    if show_plot:
-        output_notebook()
-        show(row(p, circle_legend))
+    if show_plot:  
+        if show_legend:
+            # Create Circle Legend
+            circle_legend = create_circle_legend(df, circle_var, color_var, legend_min, legend_max)
+            output_notebook()
+            show(row(p, circle_legend))
+        else:
+            output_notebook()
+            show(p)
       
     if save_png != "plot.png":
-        export_png(p, filename= save_png)
+        export_png(row(p, circle_legend), filename= save_png)
              
         
 '''
 @Param df: Dataframe. Same as df passed to plotCircleHeatMap.
-@Param lowest_pval: Float. Lowest p-value to include in the legend.
-@Param highest_pval: Float. Highest p-value to include in the legend.
+@Param legend_min: Float. Lowest p-value to include in the legend.
+@Param legend_max: Float. Highest p-value to include in the legend.
 
 Returns: df to be used in creating the circle legend. 
 '''
 
-def create_circle_legend_df(lowest_pval = 1e-6, highest_pval = .01):
-    lowest_pval_str = "{:.1e}".format(lowest_pval, '.2f')
-    med_pval_str = "{:.1e}".format(lowest_pval * float(100), '.2f')
-    highest_pval_str = "{:.1e}".format(highest_pval, '.2f')
+def create_circle_legend_df(color_var, legend_min, legend_max):
     
-    data = {'P_Value':  [lowest_pval, (lowest_pval * float(100)), highest_pval],
-            'y_axis': [lowest_pval_str, med_pval_str, highest_pval_str],
-            'x_axis': ['', '', ''],
-            'Medians': [1.5, 1.5, 1.5]}
+    # Find middle pvals
+    # Find difference between exponents of the min and max
+    exp_legend_min = np.log10(legend_min)
+    exp_legend_max = np.log10(legend_max)
+    delta = exp_legend_min - exp_legend_max 
+    # Split difference into quarters 
+    num = 4
+    val = delta / num
+    # Find middle exponents
+    exp2 = round(exp_legend_min - val)
+    pval2 = 1*10**exp2
+ 
+    
+    # Foramat scientific notation pvals as strings for y_axis labels  
+    max_str = "{:.1e}".format(legend_max, '.2f')
 
-    fake_df = pd.DataFrame (data, columns = ['x_axis', 'y_axis', 'P_Value', 'Medians'])
+    pval_str_2 = "{:.1e}".format(pval2, '.2f')
+    min_str = "{:.1e}".format(legend_min, '.2f')
+    
+    # max to min
+    data = {'P_Value':  [legend_max, pval2, legend_min],
+            'y_axis': [max_str, pval_str_2, min_str],
+            'x_axis': ['', '', ''],
+            color_var: [1.5, 1.5, 1.5]}
+
+    fake_df = pd.DataFrame (data, columns = ['x_axis', 'y_axis', 'P_Value', color_var])
     
     fake_df["size2"] = fake_df['P_Value'].apply(lambda x: -1*(np.log(x)))
     fake_df['size'] = (fake_df["size2"])*3
@@ -109,18 +137,19 @@ def create_circle_legend_df(lowest_pval = 1e-6, highest_pval = .01):
 @Param color_var: Column Label. Same as passed to plotCircleHeatMap.
 @Param x_axis: Column Label. Used on the x-axis.
 @Param y_axis: Column Label. Used on the y-axis.
-@Param lowest_pval: Float. Lowest p-value to include in the legend.
-@Param highest_pval: Float. Highest p-value to include in the legend.
+@Param legend_min: Float. Lowest p-value to include in the legend.
+@Param legend_max: Float. Highest p-value to include in the legend.
 
 Returns: df to be used in creating the circle legend. 
 '''
 
-def create_circle_legend(df, circle_var, color_var, x_axis = 'x_axis', y_axis = 'y_axis', 
-                         lowest_pval = 1e-6, highest_pval = .01, plot_height = 200, plot_width = 120):
+def create_circle_legend(df, circle_var, color_var, legend_min, legend_max,
+                         x_axis = 'x_axis', y_axis = 'y_axis', 
+                         plot_height = 200, plot_width = 120):
     # Use the smallest pval
-    if df[circle_var].min() < lowest_pval:
-        lowest_pval = df[circle_var].min()
-    circle_df = create_circle_legend_df(lowest_pval, highest_pval)
+    if df[circle_var].min() < legend_min:
+        legend_min = df[circle_var].min()
+    circle_df = create_circle_legend_df(color_var, legend_min, legend_max)
     
     maxval = circle_df[color_var].max()
     minval = circle_df[color_var].min()
@@ -138,13 +167,15 @@ def create_circle_legend(df, circle_var, color_var, x_axis = 'x_axis', y_axis = 
               fill_color={"field":color_var, "transform":exp_cmap})
     
     circle.x_range.factors = sorted(circle_df[x_axis].unique().tolist())
-    circle.y_range.factors = sorted(circle_df[y_axis].unique().tolist(), reverse = False)
+    circle.y_range.factors = circle_df[y_axis].unique().tolist() # plots in reverse order of circle_df (max to min)
     circle.xaxis.major_label_orientation = math.pi/2
     
-    circle.xaxis.axis_label = 'FDR P-Values'
+    circle.xaxis.axis_label = 'FDR_P-Values'
+    
     
     return circle
       
+
 
 '''
 @Param plot_df:
@@ -299,7 +330,7 @@ https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipl
 
 This function will return a data frame with the columns comparison, the correlation coefficient, and the p value.
 '''
-def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni',return_all = True):
+def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correction_method='bonferroni',return_all = True, return_corrected_pvals = False):
 
 
     #df = df.dropna(axis=1, how="all")
@@ -315,7 +346,8 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
 
 
     '''Format results in a pandas dataframe'''
-    newdf = pd.DataFrame(columns=['Comparison','Correlation','P_value'])
+    
+    newdf = pd.DataFrame()
     for gene in comparison_columns:
         #create subset df with interacting gene/ gene (otherwise drop NaN drops everything)
         df_subset = df[[label_column,gene]]
@@ -338,62 +370,115 @@ def wrap_pearson_corr(df,label_column, alpha=.05,comparison_columns=None,correct
     '''Correct for multiple testing to determine if each comparison meets the new cutoff'''
     results = statsmodels.stats.multitest.multipletests(pvals=pvals, alpha=alpha, method=correction_method)
     reject = results[0]
+    corrected_pval = results[1]
 
     if return_all:
-        for i in range(0,len(comparisons)):
-            newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
+        if return_corrected_pvals:
+            for i in range(0,len(comparisons)):
+                newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i], "P_value": corrected_pval[i]}, ignore_index=True)
+                  
+        if return_corrected_pvals == False:
+            for i in range(0,len(comparisons)):
+                newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
 
     '''Else only add significant comparisons'''
     if (return_all == False):
+        
+        if return_corrected_pvals:
             for i in range(0, len(reject)):
                 if reject[i]:
-                    newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],'P_value': pvals[i]}, ignore_index=True)
-
-    '''Sort dataframe by ascending p-value'''
-    newdf = newdf.sort_values(by='P_value', ascending=True)
+                    newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],"P_value": corrected_pval[i]}, ignore_index=True)
+        if return_corrected_pvals == False:
+                for i in range(0, len(reject)):
+                    if reject[i]:
+                        newdf = newdf.append({'Comparison': comparisons[i],"Correlation": correlation[i],"P_value": pvals[i]}, ignore_index=True)
+    
+    
+    newdf = newdf.sort_values(by= 'P_value', ascending=True)
     '''If results df is not empty, return it, else return None'''
     return newdf
-
-
+'''
+@Param theNumber: Float. Is the number that needs to be truncated
+@Param myDigits: Float. Is how many decimal place values that should be truncated
 
 '''
-@Param df1: Dataframe. Contains numeric values (such as proteomics) for linear regression
+def myTrunc(theNumber, theDigits):
+
+    myDigits = 10 ** theDigits
+    return (int(theNumber * myDigits) / myDigits)
+
+'''
+@Param df1: Dataframe. Contains numeric values (such as proteomics) for pearson correlation 
 @Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values.
 @Param y_axis:String. Used as the label for the y-axis as well as the column name for the y-axis values.
 @Param title: String. Used as title of figure
-@Param ra_stats: Boolean. Defalt is False. If true it will print out the linear regression stats.
-@Param show_plot: Boolean. Defalt is True. If true it will show the linear regression plot.
+@Param ra_stats: Boolean. Default is False. If true it will print out the pearson correlation and p-value.
+@Param x_coor: Float.  Default is 1.0. Is the x coordinate where the pearson correlation and p-value will print. 
+@Param y_coor: Float.  Default is 1.0. Is the y coordinate where the pearson correlation and p-value will print. 
+@Param pval_trunc: Int. Default is 5. Is how many decimal place values that should be truncated.
+@Param show_plot: Boolean. Default is True. If true it will show the linear regression plot.
 @Param save_file_name: String.File will not be saved unless a file name is specified. Plot is saved in current directory as png.
 
-This fuction takes a dataframe with numeric values (such as proteomics) and performs a linear regression analysis between two user specified columns within the dataframe. The function will then create the linear regression graph and can print the graph to the screen and save the figure depending on user input.
+This fuction takes a dataframe with numeric values (such as proteomics) and performs a pearson correlation analysis between two user specified columns within the dataframe. The function will then create the perason correlation graph and can print the graph to the screen and save the figure depending on user input.
 '''
+def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, pval_trunc = 5 , save_file_name = "file_name"):
+    #format dfs 
+    if hue != "none":   
+      
+        df1_subset = df1[[x_axis,y_axis,hue]]
+        df1_subset = df1_subset.dropna(axis=0, how="any")
+        count_row = df1_subset.shape[0]
+        if count_row > 30:
+            x1 = df1_subset[[x_axis]].values
+            y1 = df1_subset[[y_axis]].values
+            x1 = x1[:,0]
+            y1 = y1[:,0]
+            corr, pval = scipy.stats.pearsonr(x1,y1)
 
+            sns.set(style="darkgrid")
+            plt.rcParams["figure.figsize"] = (30,22)
+            graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, hue= hue, fit_reg=False)
+            sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
+            graph.set(title = title)
+        else:
+            return 0
 
-def plot_lin_regression(df1,x_axis, y_axis, title, ra_stats = False, show_plot = True, save_file_name = "file_name" ):
-    #subset df to have just the x and y axis specified
-    df1_subset = df1[[x_axis,y_axis]]
-    #drop na values. Can't have in linear regression
-    df1_subset = df1_subset.dropna(axis=0, how="any")
+    if hue == "none":
+        
+        df1_subset = df1[[x_axis,y_axis]]
+        df1_subset = df1_subset.dropna(axis=0, how="any")
+        count_row = df1_subset.shape[0]
+        if count_row > 30:
+            x1 = df1_subset[[x_axis]].values
+            y1 = df1_subset[[y_axis]].values
+            x1 = x1[:,0]
+            y1 = y1[:,0]
+            corr, pval = scipy.stats.pearsonr(x1,y1)
 
-    x1 = df1_subset[[x_axis]].values
-    y1 = df_gbm_subset[[y_axis]].values
-    x1 = x1[:,0]
-    y1 = y1[:,0]
+            sns.set(style="darkgrid")
+            graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, fit_reg=False)
+            sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
+            plt.title(label = title, fontsize = 30)
+            plt.xlabel(x_axis, fontsize=20)
+            plt.ylabel( y_axis, fontsize=20)
+            plt.xticks(fontsize = 17)
+            plt.yticks(fontsize = 17)
+        else:
+            return 0
 
-    slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(x1,y1)
     if ra_stats:
-        print ('Slope of regression: %s\nR-squared: %s\nP-value: %s'%(slope, r_value**2, p_value))
-
-    sns.set(style="darkgrid")
-    plot = sns.regplot(x=x1, y=y1, data=df1)
-    plot.set(xlabel=x_axis, ylabel=y_axis, title=title)
+        pval = myTrunc(pval,pval_trunc)
+        corr = myTrunc(corr,3)
+        plt.text(x_coor,y_coor, "Correlation: %s\nPvalue: %s"%(corr,pval), fontsize = 17)
+        
+    if save_file_name != "file_name":
+        plt.tight_layout()
+        plt.subplots_adjust(top=0.88)
+        plt.savefig(save_file_name+'.png', dpi = 300)
     if show_plot:
         plt.show()
         plt.clf()
         plt.close()
-
-    if save_file_name != "file_name":
-        plt.savefig(save_file_name+'.png')
 
 
 '''
@@ -459,24 +544,28 @@ def figure1_plot_mutations(dflist = None, names_of_df=None, title=None, save_to_
     #Now plot it using arrays
     width = 0.1
     x = np.arange(len(allLabels))
-    a4_dims = (25, 13) #dimensions for bigger plot
+    a4_dims = (40, 25) #dimensions for bigger plot
     fig, ax = plt.subplots(figsize=a4_dims)
     for position in range(0, number_of_df):
         r = ax.bar(x+(width*position), frequencies_for_each_df[position], width,label=names_of_df[position], alpha=.5, linewidth=0)
 
 
 
-    ax.set_ylabel('Percent Sample')
+    ax.set_ylabel('Percent Sample', size = 60)
     ax.set_title(title)
     ax.set_xticks(x)
     ax.set_xticklabels(allLabels)
     ax.legend()
+    ax.set_xticklabels(allLabels, size = 60)
+    ax.set_ylim(0,100)
+    ax.legend(prop={'size': 50})
+    ax.yaxis.set_tick_params(labelsize=60)
 
 
-
-    plt.setp(ax.get_xticklabels(),rotation='vertical')
+    plt.setp(ax.get_xticklabels(),rotation= 45)
+    plt.tight_layout()
     if save_to_path == None:
-        plt.savefig("step_1.png")
+        plt.savefig("step_1.png",dpi = 300)
     else:
         plt.savefig(save_to_path)
 
