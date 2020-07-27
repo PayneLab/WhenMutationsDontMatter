@@ -6961,3 +6961,7 @@ LINE 701 : 2020-05-26 10:44:18,599 [DEBUG   ] Embedding font /Users/hannahboekwe
 LINE 708 : 2020-05-26 10:44:18,599 [DEBUG   ] Writing TrueType font.
 LINE 373 : 2020-05-26 10:44:18,608 [INFO    ] Done.
 
+LINE 221 : 2020-06-05 15:44:07,141 [ERROR   ] Invalid alias: The name clear can't be aliased because it is another magic command.
+LINE 221 : 2020-06-05 15:44:07,142 [ERROR   ] Invalid alias: The name more can't be aliased because it is another magic command.
+LINE 221 : 2020-06-05 15:44:07,142 [ERROR   ] Invalid alias: The name less can't be aliased because it is another magic command.
+LINE 221 : 2020-06-05 15:44:07,142 [ERROR   ] Invalid alias: The name man can't be aliased because it is another magic command.
