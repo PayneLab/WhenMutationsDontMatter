@@ -98,19 +98,12 @@ Returns: df to be used in creating the circle legend.
 '''
 
 def create_circle_legend_df(color_var, legend_min, legend_max):
-    
-    # Find middle pvals
-    # Find difference between exponents of the min and max
-    exp_legend_min = np.log10(legend_min)
-    exp_legend_max = np.log10(legend_max)
-    delta = exp_legend_min - exp_legend_max 
-    # Split difference into quarters 
-    num = 4
-    val = delta / num
-    # Find middle exponents
-    exp2 = round(exp_legend_min - val)
-    pval2 = 1*10**exp2
- 
+    # Find middle pval
+    exp_min = abs(np.log10(legend_min))
+    exp_max = abs(np.log10(legend_max))
+    delta = (exp_min - exp_max) / 2 
+    exp_mid = -1 * (exp_max + delta)
+    pval2 = 1 * 10**exp_mid
     
     # Foramat scientific notation pvals as strings for y_axis labels  
     max_str = "{:.1e}".format(legend_max, '.2f')
