@@ -76,6 +76,7 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
         if show_legend:
             # Create Circle Legend
             circle_legend = create_circle_legend(circle_var, color_var, legend_min, legend_med, legend_max)
+            circle_legend.axis.major_label_text_font_size = str(font_size - 1)+"pt" # font size
             output_notebook()
             show(row(p, circle_legend))
         else:
