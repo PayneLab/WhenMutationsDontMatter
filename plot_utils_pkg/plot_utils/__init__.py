@@ -33,7 +33,7 @@ and columns for circle size and color gradient.
 This function creates a bokeh map that is heat map with extra variable of size of the circles. 
 
 '''
-def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1000, plot_height = 650, font_size = 12, x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png", legend_min = 1e-6, legend_max = 0.01, show_legend = True):
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1000, plot_height = 650, font_size = 12,    x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png", legend_min = 1e-6, legend_med = .0001, legend_max = 0.01, show_legend = True):
   
     # circle_var designed for pvalues. Normalized by taking log 10 of values and multiplying by 5 
     #added a new column to make the plot size
@@ -72,13 +72,10 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
     bar = ColorBar(color_mapper=exp_cmap, location=(0,0))
     p.add_layout(bar, "right")
     
-    # Create Circle Legend
-    circle_legend = create_circle_legend(df, circle_var, color_var, legend_min, legend_max)
-    
     if show_plot:  
         if show_legend:
             # Create Circle Legend
-            circle_legend = create_circle_legend(df, circle_var, color_var, legend_min, legend_max)
+            circle_legend = create_circle_legend(circle_var, color_var, legend_min, legend_med, legend_max)
             output_notebook()
             show(row(p, circle_legend))
         else:
@@ -87,33 +84,33 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
       
     if save_png != "plot.png":
         export_png(row(p, circle_legend), filename= save_png)
-             
-        
+         
+
 '''
-@Param df: Dataframe. Same as df passed to plotCircleHeatMap.
 @Param legend_min: Float. Lowest p-value to include in the legend.
 @Param legend_max: Float. Highest p-value to include in the legend.
+@Param color_var: Str. Used for column name (same as other df)
 
 Returns: df to be used in creating the circle legend. 
 '''
 
-def create_circle_legend_df(color_var, legend_min, legend_max):
+def create_circle_legend_df(color_var, legend_min, legend_med, legend_max):
     # Find middle pval
-    exp_min = abs(np.log10(legend_min))
-    exp_max = abs(np.log10(legend_max))
-    delta = (exp_min - exp_max) / 2 
-    exp_mid = -1 * (exp_max + delta)
-    pval2 = 1 * 10**exp_mid
+    
+    #exp_min = abs(np.log10(legend_min))
+    #exp_max = abs(np.log10(legend_max))
+    #delta = (exp_min - exp_max) / 2 
+    #exp_mid = -1 * (exp_max + delta)
+    #pval2 = 1 * 10**exp_mid
     
     # Foramat scientific notation pvals as strings for y_axis labels  
     max_str = "{:.1e}".format(legend_max, '.2f')
-
-    pval_str_2 = "{:.1e}".format(pval2, '.2f')
+    med_str = "{:.1e}".format(legend_med, '.2f')
     min_str = "{:.1e}".format(legend_min, '.2f')
     
     # max to min
-    data = {'P_Value':  [legend_max, pval2, legend_min],
-            'y_axis': [max_str, pval_str_2, min_str],
+    data = {'P_Value':  [legend_max, legend_med, legend_min],
+            'y_axis': [max_str, med_str, min_str],
             'x_axis': ['', '', ''],
             color_var: [1.5, 1.5, 1.5]}
 
@@ -136,13 +133,11 @@ def create_circle_legend_df(color_var, legend_min, legend_max):
 Returns: df to be used in creating the circle legend. 
 '''
 
-def create_circle_legend(df, circle_var, color_var, legend_min, legend_max,
+def create_circle_legend(circle_var, color_var, legend_min, legend_med, legend_max,
                          x_axis = 'x_axis', y_axis = 'y_axis', 
                          plot_height = 200, plot_width = 120):
-    # Use the smallest pval
-    if df[circle_var].min() < legend_min:
-        legend_min = df[circle_var].min()
-    circle_df = create_circle_legend_df(color_var, legend_min, legend_max)
+    # Get customized df
+    circle_df = create_circle_legend_df(color_var, legend_min, legend_med, legend_max)
     
     maxval = circle_df[color_var].max()
     minval = circle_df[color_var].min()
@@ -165,9 +160,7 @@ def create_circle_legend(df, circle_var, color_var, legend_min, legend_max,
     
     circle.xaxis.axis_label = 'FDR_P-Values'
     
-    
     return circle
-      
 
 
 '''
