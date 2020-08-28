@@ -136,7 +136,7 @@ Returns: df to be used in creating the circle legend.
 
 def create_circle_legend(circle_var, color_var, legend_min, legend_med, legend_max,
                          x_axis = 'x_axis', y_axis = 'y_axis', 
-                         plot_height = 200, plot_width = 120):
+                         plot_height = 200, plot_width = 140):
     # Get customized df
     circle_df = create_circle_legend_df(color_var, legend_min, legend_med, legend_max)
     
@@ -159,7 +159,7 @@ def create_circle_legend(circle_var, color_var, legend_min, legend_med, legend_m
     circle.y_range.factors = circle_df[y_axis].unique().tolist() # plots in reverse order of circle_df (max to min)
     circle.xaxis.major_label_orientation = math.pi/2
     
-    circle.xaxis.axis_label = 'FDR_P-Values'
+    circle.xaxis.axis_label = 'FDR p-value'
     
     return circle
 
