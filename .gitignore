@@ -17,3 +17,11 @@ PTEN\Figure_2\csv
 PTEN\Figure_2\Make_Figure_2A
 PTEN/PIK3CA_CNV.ipynb
 PTEN/.ipynb_checkpoints/PIK3CA_CNV-checkpoint.ipynb
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_BR
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_ccRCC
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_CO
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_GBM
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_HNSCC
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_LSCC
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_LUAD
+EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_OV
