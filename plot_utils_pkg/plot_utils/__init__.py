@@ -85,6 +85,8 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
       
     if save_png != "plot.png":
         export_png(row(p, circle_legend), filename= save_png)
+        
+    return p
          
 
 '''
