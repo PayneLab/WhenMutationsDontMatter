@@ -9563,3 +9563,18 @@ LINE 228 : 2020-09-11 13:20:11,722 [DEBUG   ] -> code[replace] old[4:4] new[4:4]
 LINE 264 : 2020-09-11 13:20:11,722 [DEBUG   ] diff parser end
 LINE 813 : 2020-09-11 13:20:32,479 [DEBUG   ] Starting new HTTPS connection (1): reactome.org:443
 LINE 393 : 2020-09-11 13:20:33,320 [DEBUG   ] https://reactome.org:443 "GET /ContentService/data/participants/R-HSA-109582 HTTP/1.1" 200 None
+LINE 388 : 2020-09-12 15:50:18,605 [DEBUG   ] DELETE http://127.0.0.1:50679/wd/hub/session/ebe749f0-f461-11ea-8d8a-2ba503319079 {"sessionId": "ebe749f0-f461-11ea-8d8a-2ba503319079"}
+LINE 205 : 2020-09-12 15:50:18,624 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:50679
+LINE 401 : 2020-09-12 15:50:18,633 [DEBUG   ] Incremented Retry for (url='/wd/hub/session/ebe749f0-f461-11ea-8d8a-2ba503319079'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
+LINE 662 : 2020-09-12 15:50:18,633 [WARNING ] Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8de528c780>: Failed to establish a new connection: [Errno 61] Connection refused')': /wd/hub/session/ebe749f0-f461-11ea-8d8a-2ba503319079
+LINE 205 : 2020-09-12 15:50:18,633 [DEBUG   ] Starting new HTTP connection (2): 127.0.0.1:50679
+LINE 401 : 2020-09-12 15:50:18,636 [DEBUG   ] Incremented Retry for (url='/wd/hub/session/ebe749f0-f461-11ea-8d8a-2ba503319079'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+LINE 662 : 2020-09-12 15:50:18,637 [WARNING ] Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8de4f4a518>: Failed to establish a new connection: [Errno 61] Connection refused')': /wd/hub/session/ebe749f0-f461-11ea-8d8a-2ba503319079
+LINE 205 : 2020-09-12 15:50:18,638 [DEBUG   ] Starting new HTTP connection (3): 127.0.0.1:50679
+LINE 401 : 2020-09-12 15:50:18,639 [DEBUG   ] Incremented Retry for (url='/wd/hub/session/ebe749f0-f461-11ea-8d8a-2ba503319079'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+LINE 662 : 2020-09-12 15:50:18,640 [WARNING ] Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8de52e8198>: Failed to establish a new connection: [Errno 61] Connection refused')': /wd/hub/session/ebe749f0-f461-11ea-8d8a-2ba503319079
+LINE 205 : 2020-09-12 15:50:18,640 [DEBUG   ] Starting new HTTP connection (4): 127.0.0.1:50679
+LINE 221 : 2020-09-12 15:50:19,122 [ERROR   ] Invalid alias: The name clear can't be aliased because it is another magic command.
+LINE 221 : 2020-09-12 15:50:19,122 [ERROR   ] Invalid alias: The name more can't be aliased because it is another magic command.
+LINE 221 : 2020-09-12 15:50:19,122 [ERROR   ] Invalid alias: The name less can't be aliased because it is another magic command.
+LINE 221 : 2020-09-12 15:50:19,122 [ERROR   ] Invalid alias: The name man can't be aliased because it is another magic command.
