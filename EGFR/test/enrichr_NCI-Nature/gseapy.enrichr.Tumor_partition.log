@@ -9522,3 +9522,42 @@ LINE 440 : 2020-09-16 12:50:04,897 [DEBUG   ] Finished Request
 LINE 146 : 2020-09-16 12:50:04,915 [DEBUG   ] STREAM b'IHDR' 16 13
 LINE 146 : 2020-09-16 12:50:04,915 [DEBUG   ] STREAM b'pHYs' 41 9
 LINE 146 : 2020-09-16 12:50:04,915 [DEBUG   ] STREAM b'IDAT' 62 8192
+LINE 388 : 2020-09-16 12:53:59,707 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/url {"url": "file:////var/folders/3q/hfb6fqg117bd45x534th1l2h0000gn/T/bokehcgobxdr3.html", "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:53:59,709 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:53:59,910 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/url HTTP/1.1" 200 74
+LINE 440 : 2020-09-16 12:53:59,911 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:53:59,918 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/window/current/maximize {"windowHandle": "current", "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:53:59,918 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,159 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/window/current/maximize HTTP/1.1" 200 74
+LINE 440 : 2020-09-16 12:54:00,160 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:54:00,160 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute {"script": "document.body.style.width = '100%';", "args": [], "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:54:00,160 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,164 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute HTTP/1.1" 200 76
+LINE 440 : 2020-09-16 12:54:00,164 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:54:00,165 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute {"script": "\n            const b = window.Bokeh;\n            return b && b.documents && b.documents.length > 0;\n        ", "args": [], "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:54:00,165 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,168 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute HTTP/1.1" 200 76
+LINE 440 : 2020-09-16 12:54:00,169 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:54:00,169 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute {"script": "\n// add private window prop to check that render is complete\nwindow._bokeh_render_complete = false;\nfunction done() {\n  window._bokeh_render_complete = true;\n}\n\nvar doc = window.Bokeh.documents[0];\n\nif (doc.is_idle)\n  done();\nelse\n  doc.idle.connect(done);\n", "args": [], "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:54:00,169 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,172 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute HTTP/1.1" 200 76
+LINE 440 : 2020-09-16 12:54:00,172 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:54:00,173 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute {"script": "return window._bokeh_render_complete;", "args": [], "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:54:00,173 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,176 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute HTTP/1.1" 200 76
+LINE 440 : 2020-09-16 12:54:00,176 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:54:00,176 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/log {"type": "browser", "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:54:00,176 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,178 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/log HTTP/1.1" 200 260
+LINE 440 : 2020-09-16 12:54:00,178 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:54:00,178 [DEBUG   ] GET http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/screenshot {"sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:54:00,179 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,326 [DEBUG   ] http://127.0.0.1:59254 "GET /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/screenshot HTTP/1.1" 200 99990
+LINE 440 : 2020-09-16 12:54:00,327 [DEBUG   ] Finished Request
+LINE 388 : 2020-09-16 12:54:00,328 [DEBUG   ] POST http://127.0.0.1:59254/wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute {"script": "\nreturn document.getElementsByClassName('bk-root')[0].children[0].getBoundingClientRect()\n", "args": [], "sessionId": "6eb9c4e0-f84d-11ea-94c7-31149145f850"}
+LINE 205 : 2020-09-16 12:54:00,328 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:59254
+LINE 393 : 2020-09-16 12:54:00,331 [DEBUG   ] http://127.0.0.1:59254 "POST /wd/hub/session/6eb9c4e0-f84d-11ea-94c7-31149145f850/execute HTTP/1.1" 200 142
+LINE 440 : 2020-09-16 12:54:00,331 [DEBUG   ] Finished Request
+LINE 146 : 2020-09-16 12:54:00,332 [DEBUG   ] STREAM b'IHDR' 16 13
+LINE 146 : 2020-09-16 12:54:00,332 [DEBUG   ] STREAM b'pHYs' 41 9
+LINE 146 : 2020-09-16 12:54:00,333 [DEBUG   ] STREAM b'IDAT' 62 8192
