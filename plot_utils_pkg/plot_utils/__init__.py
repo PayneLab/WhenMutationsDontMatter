@@ -410,7 +410,7 @@ def myTrunc(theNumber, theDigits):
 
 This fuction takes a dataframe with numeric values (such as proteomics) and performs a pearson correlation analysis between two user specified columns within the dataframe. The function will then create the perason correlation graph and can print the graph to the screen and save the figure depending on user input.
 '''
-def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, pval_trunc = 5 , save_file_name = "file_name"):
+def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, pval_trunc = 5 , x_lab = y_axis, y_lab = y_axis, save_file_name = "file_name"):
     #format dfs 
     if hue != "none":   
       
@@ -428,6 +428,8 @@ def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False,
             plt.rcParams["figure.figsize"] = (30,22)
             graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, hue= hue, fit_reg=False)
             sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
+            plt.xlabel(x_lab, fontsize=20)
+            plt.ylabel( y_lab, fontsize=20)
             graph.set(title = title)
         else:
             return 0
@@ -448,8 +450,8 @@ def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False,
             graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, fit_reg=False)
             sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
             plt.title(label = title, fontsize = 30)
-            plt.xlabel(x_axis, fontsize=20)
-            plt.ylabel( y_axis, fontsize=20)
+            plt.xlabel(x_lab, fontsize=20)
+            plt.ylabel( y_lab, fontsize=20)
             plt.xticks(fontsize = 17)
             plt.yticks(fontsize = 17)
         else:
