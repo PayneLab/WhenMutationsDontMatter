@@ -401,6 +401,8 @@ def myTrunc(theNumber, theDigits):
 @Param x_axis: String. Used as the label for the x-axis as well as the column name for the x-axis values.
 @Param y_axis:String. Used as the label for the y-axis as well as the column name for the y-axis values.
 @Param title: String. Used as title of figure
+@Param x_label:String. Used for x_axis label. By default label is x_axis
+@Param y_label:String. Used for y_axis label. By default label is y_axis
 @Param ra_stats: Boolean. Default is False. If true it will print out the pearson correlation and p-value.
 @Param x_coor: Float.  Default is 1.0. Is the x coordinate where the pearson correlation and p-value will print. 
 @Param y_coor: Float.  Default is 1.0. Is the y coordinate where the pearson correlation and p-value will print. 
@@ -410,8 +412,13 @@ def myTrunc(theNumber, theDigits):
 
 This fuction takes a dataframe with numeric values (such as proteomics) and performs a pearson correlation analysis between two user specified columns within the dataframe. The function will then create the perason correlation graph and can print the graph to the screen and save the figure depending on user input.
 '''
-def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, pval_trunc = 5 , x_lab = y_axis, y_lab = y_axis, save_file_name = "file_name"):
-    #format dfs 
+def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, pval_trunc = 5 , x_lab = x_axis, y_lab = y_axis, save_file_name = "file_name"):
+    #add option to insert own axis labels or by default 
+    if x_label == "x_label":
+        x_label = x_axis
+    if y_label == "y_label":
+        y_label = y_axis
+        
     if hue != "none":   
       
         df1_subset = df1[[x_axis,y_axis,hue]]
