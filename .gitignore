@@ -26,3 +26,6 @@ EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_LSCC
 EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_LUAD
 EGFR/Make_Tables/csv_files/trans_effects_all_prot_fdr_corrected_OV
 PTEN/CPTAC2_date_collected.xlsx
+PTEN/~$CPTAC2_date_collected.xlsx
+PTEN/Survival/BR_create_days_csv.ipynb
+PTEN/Survival/CO_create_days_csv.ipynb
