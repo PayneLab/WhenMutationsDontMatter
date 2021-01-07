@@ -31,3 +31,4 @@ BR_create_days_csv.ipynb
 BR_create_days_csv-checkpoint.ipynb  
 CO_create_days_csv.ipynb
 CO_create_days_csv-checkpoint.ipynb
+*.ipynb
