@@ -35,7 +35,6 @@ BR_create_days_recurrence.ipynb
 BR_create_days_recurrence-checkpoint.ipynb  
 CO_create_days_recurrence.ipynb
 CO_create_days_recurrence-checkpoint.ipynb
-*.ipynb
 KRAS/work/.DS_Store
 PTEN/.DS_Store
 .DS_Store
