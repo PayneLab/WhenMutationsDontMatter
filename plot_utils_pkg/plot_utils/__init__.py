@@ -13,6 +13,8 @@ from bokeh.models.ranges import FactorRange
 from bokeh.plotting import figure, show
 from bokeh.io import output_notebook, export_png, export_svgs
 from bokeh.layouts import row
+from bokeh.transform import factor_cmap, factor_mark
+from bokeh.models import Legend, LegendItem
 
 
 '''
@@ -27,13 +29,16 @@ and columns for circle size and color gradient.
 @Param plot_width. Default is 10000
 @Param plot_heigh. Default is 650.
 @Param font_size. Int. Default is 12pt.
+@Param shape. String. Name of column with values to caterogize shape by. Ex cis/ trans. Default is all circles.
+@Param shape_vars. List of strings. Variable names for different shapes. First name in list will be first shape in shape_markers
+@Param shape_markers. List of strings. Types of shapes. Default is circles and squares. 
 @Param save_png. Default is to not save a png file. To save file, set save_png to the name (string) you would like to save the file as. *NOTE* inorder to use this function you must download phantomjs onto computer by using conda install phantomjs
 
 
 This function creates a bokeh map that is heat map with extra variable of size of the circles. 
 
 '''
-def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1000, plot_height = 650, font_size = 12,    x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png", legend_min = 1e-6, legend_med = .0001, legend_max = 0.01, show_legend = True):
+def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, shape = None,shape_vars = None,shape_markers =  ['circle', 'square'], plot_width= 1000, plot_height = 650, font_size = 12,    x_axis_lab = "no_label", y_axis_lab = "no_label", show_plot = True, save_png = "plot.png", legend_min = 1e-6, legend_med = .0001, legend_max = 0.01, show_legend = True):
   
     # circle_var designed for pvalues. Normalized by taking log 10 of values and multiplying by 5 
     #added a new column to make the plot size
@@ -52,9 +57,18 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
     p = figure(x_range = FactorRange(), y_range = FactorRange(), plot_width= plot_width, 
                plot_height=plot_height, 
                toolbar_location=None, tools="hover")
+    if shape == None:
+        p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size", 
+             fill_color={"field":color_var, "transform":exp_cmap})
+    else:
+        EFFECT = shape_vars
+        MARKERS = shape_markers
 
-    p.scatter(x_axis,y_axis,source=df, fill_alpha=1,  line_width=0, size="size", 
-              fill_color={"field":color_var, "transform":exp_cmap})
+        p.scatter(x_axis,y_axis,source=df, line_width=0,
+              fill_alpha=1, size="size",legend = shape,
+              marker=factor_mark(shape, MARKERS,EFFECT),
+            fill_color={"field":color_var, "transform":exp_cmap})
+
 
     #p.x_range.factors = sorted(df[x_axis].unique().tolist())
     p.x_range.factors = df[x_axis].unique().tolist()
@@ -63,6 +77,7 @@ def plotCircleHeatMap ( df, circle_var, color_var, x_axis, y_axis, plot_width= 1
     
     # font size
     p.axis.major_label_text_font_size = str(font_size)+"pt"
+    p.axis.axis_label_text_font_size = str(font_size)+"pt"
     
     if (x_axis_lab != "no_label" ):
         p.xaxis.axis_label = x_axis_lab
