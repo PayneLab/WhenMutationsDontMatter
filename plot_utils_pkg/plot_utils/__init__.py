@@ -427,7 +427,7 @@ def myTrunc(theNumber, theDigits):
 
 This fuction takes a dataframe with numeric values (such as proteomics) and performs a pearson correlation analysis between two user specified columns within the dataframe. The function will then create the perason correlation graph and can print the graph to the screen and save the figure depending on user input.
 '''
-def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, show_plot = True, pval_trunc = 5 , x_label = "x_label", y_label = "y_label", save_file_name = "file_name"):
+def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False, x_coor= 1.0 , y_coor = 1.0, fontsize_title = 30, fontsize_axis = 20, show_plot = True, pval_trunc = 5 , x_label = "x_label", y_label = "y_label", save_file_name = "file_name"):
     #add option to insert own axis labels or by default 
     if x_label == "x_label":
         x_label = x_axis
@@ -450,8 +450,8 @@ def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False,
             plt.rcParams["figure.figsize"] = (30,22)
             graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, hue= hue, fit_reg=False)
             sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
-            plt.xlabel(x_label, fontsize=20)
-            plt.ylabel( y_label, fontsize=20)
+            plt.xlabel(x_label, fontsize=fontsize_axis)
+            plt.ylabel( y_label, fontsize=fontsize_axis)
             graph.set(title = title)
         else:
             return 0
@@ -471,9 +471,9 @@ def plot_pearson(df1,x_axis, y_axis, hue = "none", title = "", ra_stats = False,
             sns.set(style="darkgrid")
             graph = sns.lmplot(x= x_axis, y= y_axis, data=df1_subset, fit_reg=False)
             sns.regplot(x=x1, y=y1, data=df1_subset,scatter = False)
-            plt.title(label = title, fontsize = 30)
-            plt.xlabel(x_label, fontsize=20)
-            plt.ylabel( y_label, fontsize=20)
+            plt.title(label = title, fontsize = fontsize_title)
+            plt.xlabel(x_label, fontsize= fontsize_axis)
+            plt.ylabel( y_label, fontsize= fontsize_axis)
             plt.xticks(fontsize = 17)
             plt.yticks(fontsize = 17)
         else:
