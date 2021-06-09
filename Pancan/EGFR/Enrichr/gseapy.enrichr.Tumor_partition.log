@@ -9548,3 +9548,7 @@ LINE 701 : 2021-05-20 13:09:55,436 [DEBUG   ] Embedding font /Users/Lindsey/anac
 LINE 708 : 2021-05-20 13:09:55,436 [DEBUG   ] Writing TrueType font.
 LINE 373 : 2021-05-20 13:09:55,449 [INFO    ] Done.
 
+LINE 221 : 2021-05-24 12:41:49,280 [ERROR   ] Invalid alias: The name clear can't be aliased because it is another magic command.
+LINE 221 : 2021-05-24 12:41:49,281 [ERROR   ] Invalid alias: The name more can't be aliased because it is another magic command.
+LINE 221 : 2021-05-24 12:41:49,281 [ERROR   ] Invalid alias: The name less can't be aliased because it is another magic command.
+LINE 221 : 2021-05-24 12:41:49,281 [ERROR   ] Invalid alias: The name man can't be aliased because it is another magic command.
