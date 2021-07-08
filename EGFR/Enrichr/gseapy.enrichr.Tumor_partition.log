@@ -9813,3 +9813,18 @@ LINE 440 : 2021-06-09 11:48:11,078 [DEBUG   ] Finished Request
 LINE 146 : 2021-06-09 11:48:11,079 [DEBUG   ] STREAM b'IHDR' 16 13
 LINE 146 : 2021-06-09 11:48:11,079 [DEBUG   ] STREAM b'pHYs' 41 9
 LINE 146 : 2021-06-09 11:48:11,079 [DEBUG   ] STREAM b'IDAT' 62 8192
+LINE 388 : 2021-06-09 11:50:57,998 [DEBUG   ] DELETE http://127.0.0.1:55312/wd/hub/session/3d1dad10-c94a-11eb-b5ed-d999078f0072 {"sessionId": "3d1dad10-c94a-11eb-b5ed-d999078f0072"}
+LINE 205 : 2021-06-09 11:50:57,999 [DEBUG   ] Starting new HTTP connection (1): 127.0.0.1:55312
+LINE 401 : 2021-06-09 11:50:58,022 [DEBUG   ] Incremented Retry for (url='/wd/hub/session/3d1dad10-c94a-11eb-b5ed-d999078f0072'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
+LINE 662 : 2021-06-09 11:50:58,022 [WARNING ] Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))': /wd/hub/session/3d1dad10-c94a-11eb-b5ed-d999078f0072
+LINE 205 : 2021-06-09 11:50:58,022 [DEBUG   ] Starting new HTTP connection (2): 127.0.0.1:55312
+LINE 401 : 2021-06-09 11:50:58,023 [DEBUG   ] Incremented Retry for (url='/wd/hub/session/3d1dad10-c94a-11eb-b5ed-d999078f0072'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+LINE 662 : 2021-06-09 11:50:58,023 [WARNING ] Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fdb65036f60>: Failed to establish a new connection: [Errno 61] Connection refused')': /wd/hub/session/3d1dad10-c94a-11eb-b5ed-d999078f0072
+LINE 205 : 2021-06-09 11:50:58,023 [DEBUG   ] Starting new HTTP connection (3): 127.0.0.1:55312
+LINE 401 : 2021-06-09 11:50:58,024 [DEBUG   ] Incremented Retry for (url='/wd/hub/session/3d1dad10-c94a-11eb-b5ed-d999078f0072'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+LINE 662 : 2021-06-09 11:50:58,024 [WARNING ] Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fdb65036c18>: Failed to establish a new connection: [Errno 61] Connection refused')': /wd/hub/session/3d1dad10-c94a-11eb-b5ed-d999078f0072
+LINE 205 : 2021-06-09 11:50:58,024 [DEBUG   ] Starting new HTTP connection (4): 127.0.0.1:55312
+LINE 221 : 2021-06-09 11:50:58,139 [ERROR   ] Invalid alias: The name clear can't be aliased because it is another magic command.
+LINE 221 : 2021-06-09 11:50:58,139 [ERROR   ] Invalid alias: The name more can't be aliased because it is another magic command.
+LINE 221 : 2021-06-09 11:50:58,139 [ERROR   ] Invalid alias: The name less can't be aliased because it is another magic command.
+LINE 221 : 2021-06-09 11:50:58,139 [ERROR   ] Invalid alias: The name man can't be aliased because it is another magic command.
