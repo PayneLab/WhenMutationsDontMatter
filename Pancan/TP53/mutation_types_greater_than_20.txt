@@ -1,0 +1,64 @@
+---Breast---
+Mutation
+Wildtype    46
+Deletion    32
+Missense    21
+dtype: int64
+--------------------------------
+
+---Renal---
+Mutation
+Deletion    42
+Missense    37
+dtype: int64
+--------------------------------
+
+---Colon---
+Mutation
+Deletion    57
+Wildtype    35
+dtype: int64
+--------------------------------
+
+---Glioblastoma---
+Mutation
+Wildtype    60
+dtype: int64
+--------------------------------
+
+---Head and Neck---
+Mutation
+Missense      46
+Truncation    29
+dtype: int64
+--------------------------------
+
+---Lung Adenocarcinoma---
+Mutation
+Deletion    39
+Wildtype    36
+Missense    23
+dtype: int64
+--------------------------------
+
+---Ovarian---
+Mutation
+Deletion    40
+Missense    24
+dtype: int64
+--------------------------------
+
+---Endometrial---
+Mutation
+Wildtype    72
+dtype: int64
+--------------------------------
+
+---Pancreatic---
+Mutation
+Missense    47
+Wildtype    37
+Deletion    31
+dtype: int64
+--------------------------------
+
