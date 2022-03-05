@@ -1,0 +1,30 @@
+Brca
+len(deletions) = 32
+len(wildtypes) = 46
+Brca deletion P-value: 0.2621251374049456
+
+Ccrcc
+len(deletions) = 3
+len(wildtypes) = 25
+Ccrcc deletion P-value: 0.08414077232206843
+
+Coad
+len(deletions) = 34
+len(wildtypes) = 16
+Coad deletion P-value: 0.01191040809308662
+
+Luad
+len(deletions) = 34
+len(wildtypes) = 29
+Luad deletion P-value: 0.02707681368408237
+
+Ov
+len(deletions) = 40
+len(wildtypes) = 4
+Ov deletion P-value: 0.36078400842934055
+
+Pdac
+len(deletions) = 16
+len(wildtypes) = 21
+Pdac deletion P-value: 0.008603505603947332
+
