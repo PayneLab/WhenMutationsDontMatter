@@ -1,0 +1,165 @@
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
+Brca
+Number of Deletions = 32
+Number of Wildtypes = 46
+Brca Deletion P-value = 0.2621251374049456
+
+Coad
+Number of Deletions = 34
+Number of Wildtypes = 16
+Coad Deletion P-value = 0.01191040809308662
+
+Ov
+Number of Deletions = 40
+Number of Wildtypes = 4
+Ov Deletion P-value = 0.36078400842934055
+
