@@ -6,11 +6,20 @@ COAD
    Deletion p-val: 6.88099627820934e-05
 GBM
 HNSCC
+   Truncation p-val: 0.2475879731945877
    Missense p-val: 3.333869718168123e-05
 LSCC
+   Deletion p-val: 0.07587198863858072
+   Missense p-val: 0.0015471362201404748
 LUAD
+   Deletion p-val: 0.02177855035507432
+   Missense p-val: 9.257435991270784e-08
 OV
    Deletion p-val: 0.24660516432023621
    Missense p-val: 0.005419026021112961
 UCEC
 PDAC
+   Deletion p-val: 0.41410316998434893
+   Deletion p-val: 0.03199526277708706
+   Missense p-val: 0.5378968779376602
+   Missense p-val: 3.577995773060083e-05
