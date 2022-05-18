@@ -1,0 +1,25 @@
+COAD MISSENSE: 1 significant entries
+   KRAS:       0.028720902715598354
+
+COAD AMPLIFICATION: 0 significant entries
+
+LSCC MISSENSE: 0 significant entries
+
+LSCC AMPLIFICATION: 1 significant entries
+   KRAS:       0.001843747052522475
+
+LUAD MISSENSE: 1 significant entries
+   KRAS:       0.0001560081868011289
+
+LUAD AMPLIFICATION: 0 significant entries
+
+OV MISSENSE: 0 significant entries
+
+OV AMPLIFICATION: 1 significant entries
+   KRAS:       0.03343097780109051
+
+PDAC MISSENSE: 1 significant entries
+   KRAS:       4.764818684267574e-06
+
+PDAC AMPLIFICATION: 0 significant entries
+

@@ -1,0 +1,8 @@
+KRAS
+	0 MAPK
+PTEN
+	13 PI3k-Akt signaling
+PIK3CA
+	17 Akt Signaling
+EGFR
+	27 EGF/EGFR Signaling
