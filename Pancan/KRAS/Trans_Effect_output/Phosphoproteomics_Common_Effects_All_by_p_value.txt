@@ -1,0 +1,27 @@
+KRAS Phosphoproteomics
+Total number of cancer+mutation types measured: 6
+Taking the genes where p < 0.05
+MKNK2_S220            3
+TPI1_S117             3
+LRRC41_S359           3
+PARP4_S1186           2
+KIAA1217_S1551        2
+PPL_S14               2
+ARHGAP30_S630         2
+NUP54_S289            2
+MICALL2_S504          2
+CD2AP_S542            2
+DSP_S176              2
+CEP170_S1198          2
+PCM1_S1435            2
+DSP_S1949             2
+MCF2L_S588            2
+MORC3_S514            2
+ABI1_S216             2
+AP1M2_S366            2
+RAI1_S1064T1068       2
+KRT7_S28              2
+PLEC_T2776            2
+TNFRSF21_S541         2
+WASHC2A_S1087S1114    2
+KRT8_S478             2

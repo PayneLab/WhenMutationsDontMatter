@@ -1,0 +1,23 @@
+EGFR Proteomics
+Total number of cancer+mutation types measured: 7
+Taking the genes where p < 0.05
+RALA       4
+MAP4K1     3
+CSK        3
+PIK3R1     3
+GRB2       3
+INPP5D     3
+PRKCB      3
+CBL        3
+STAT5B     2
+LSP1       2
+CASP1      2
+JAK2       2
+SH3KBP1    2
+GPLD1      2
+STAT5A     2
+VAV3       2
+GRB10      2
+JAK1       2
+FCSK       2
+LPXN       2

@@ -1,0 +1,4 @@
+KRAS Proteomics
+Total number of cancer+mutation types measured: 6
+Taking the genes where p < 0.05
+Series([], )

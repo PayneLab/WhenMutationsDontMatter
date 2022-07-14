@@ -1,0 +1,4 @@
+EGFR Phosphoproteomics
+Total number of cancer+mutation types measured: 7
+Taking the genes where p < 0.05
+PRKCB_S660    2

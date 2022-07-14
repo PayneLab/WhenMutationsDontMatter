@@ -1,0 +1,17 @@
+KRAS Transcriptomics
+Total number of cancer+mutation types measured: 6
+Taking the genes where p < 0.05
+GAPDH        3
+ANKS1B       2
+DERA         2
+IPO8         2
+DUSP6        2
+TMTC1        2
+TPI1         2
+RP1-7G5.6    2
+TGFA         2
+FAM60A       2
+ABHD17C      2
+MRPS35       2
+BEX2         2
+DUSP4        2

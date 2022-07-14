@@ -1,0 +1,24 @@
+KRAS Proteomics
+Total number of cancer+mutation types measured: 6
+Taking the genes where p < 0.05
+LDHB       3
+IL33       2
+F3         2
+PFKP       2
+GPRC5A     2
+MLF2       2
+KIF5B      2
+TPI1       2
+CCDC91     2
+CEMIP      2
+GAPDH      2
+FSTL1      2
+PIP4K2A    2
+PHB        2
+CORO2B     2
+FKBP4      2
+CMAS       2
+NFIA       2
+DOCK5      2
+INTS13     2
+KRAS       2
