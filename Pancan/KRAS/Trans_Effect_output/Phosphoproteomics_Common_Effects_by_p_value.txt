@@ -1,5 +1,0 @@
-KRAS Phosphoproteomics
-Total number of cancer+mutation types measured: 6
-Taking the genes where p < 0.05
-MKNK2_S220    3
-FLNB_T2585    2
