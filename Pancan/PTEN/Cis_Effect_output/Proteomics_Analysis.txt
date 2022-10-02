@@ -1,0 +1,32 @@
+COAD DELETION: 1 significant entries
+   TP53:       0.01191040809308662
+
+COAD MISSENSE: 0 significant entries
+
+HNSCC DELETION: 0 significant entries
+
+HNSCC MISSENSE: 1 significant entries
+   TP53:       2.176079318065972e-06
+
+LSCC DELETION: 0 significant entries
+
+LSCC MISSENSE: 1 significant entries
+   TP53:       0.0014233691227942343
+
+LUAD DELETION: 1 significant entries
+   TP53:       0.02707681368408237
+
+LUAD MISSENSE: 1 significant entries
+   TP53:       2.6563540592302864e-08
+
+OV DELETION: 0 significant entries
+
+OV MISSENSE: 1 significant entries
+   TP53:       0.0011348104751968877
+
+PDAC DELETION: 1 significant entries
+   TP53:       0.008603505603947332
+
+PDAC MISSENSE: 1 significant entries
+   TP53:       4.639990858877985e-06
+
