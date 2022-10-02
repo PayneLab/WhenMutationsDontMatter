@@ -1,0 +1,14 @@
+EGFR Transcriptomics
+Total number of cancer+mutation types measured: 8
+Taking the genes where p < 0.05
+JAK1      4
+BRAF      3
+RAC1      3
+RALA      3
+SBDSP1    2
+UFSP1     2
+EPS15     2
+LPXN      2
+RAP1A     2
+ETNK2     2
+FOXO4     2

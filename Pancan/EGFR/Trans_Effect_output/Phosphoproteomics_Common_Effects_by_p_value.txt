@@ -1,0 +1,4 @@
+EGFR Phosphoproteomics
+Total number of cancer+mutation types measured: 8
+Taking the genes where p < 0.05
+ARHGEF1_S384S388    2

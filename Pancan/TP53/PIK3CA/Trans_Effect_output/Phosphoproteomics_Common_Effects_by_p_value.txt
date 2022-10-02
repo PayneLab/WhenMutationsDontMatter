@@ -1,0 +1,5 @@
+PIK3CA Phosphoproteomics
+Total number of cancer+mutation types measured: 6
+Taking the genes where p < 0.05
+BRCA1_S114       2
+RPS6_S235S236    2

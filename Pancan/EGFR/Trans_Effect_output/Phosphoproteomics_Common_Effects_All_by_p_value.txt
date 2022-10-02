@@ -1,0 +1,17 @@
+EGFR Phosphoproteomics
+Total number of cancer+mutation types measured: 8
+Taking the genes where p < 0.05
+EGFR_S1166          3
+MAP3K8_S141         2
+ARHGEF1_S384S388    2
+EGFR_S1166Y1172     2
+DOCK8_S451          2
+EGFR_S991           2
+EGFR_S1064          2
+PLCL2_T584          2
+DENND2A_S365        2
+MACC1_S191          2
+EGFR_T693           2
+USP54_S24           2
+SACS_S2511          2
+EGFR_Y1197          2
