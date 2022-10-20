@@ -1,0 +1,6 @@
+PTEN Transcriptomics
+Total number of cancer+mutation types measured: 5
+Taking the genes where p < 0.05
+PPP2R2D    2
+PIK3R6     2
+CHUK       2

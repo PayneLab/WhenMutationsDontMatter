@@ -1,0 +1,36 @@
+BRCA DELETION: 1 significant entries
+   TP53:       0.0010879292638063015
+
+COAD DELETION: 1 significant entries
+   TP53:       0.0029778266773767903
+
+HNSCC MISSENSE: 0 significant entries
+   TP53:       0.05342614687118904
+
+HNSCC TRUNCATION: 1 significant entries
+   TP53:       0.04257359614944479
+
+LSCC DELETION: 0 significant entries
+   TP53:       0.9664761179404305
+
+LSCC MISSENSE: 0 significant entries
+   TP53:       0.17271358578176457
+
+LUAD DELETION: 1 significant entries
+   TP53:       0.0049890681799843245
+
+LUAD MISSENSE: 0 significant entries
+   TP53:       0.864058274741061
+
+OV DELETION: 0 significant entries
+   TP53:       0.16855462659687653
+
+OV MISSENSE: 0 significant entries
+   TP53:       0.11273857653628924
+
+PDAC DELETION: 0 significant entries
+   TP53:       0.18031324568919913
+
+PDAC MISSENSE: 0 significant entries
+   TP53:       0.07123128395051423
+

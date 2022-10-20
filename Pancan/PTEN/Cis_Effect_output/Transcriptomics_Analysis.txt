@@ -1,0 +1,15 @@
+GBM DELETION: 1 significant entries
+   PTEN:       0.00015049519611508457
+
+LSCC DELETION: 1 significant entries
+   PTEN:       5.4981882611733415e-05
+
+OV DELETION: 1 significant entries
+   PTEN:       6.863548705611516e-07
+
+UCEC MISSENSE: 1 significant entries
+   PTEN:       0.002472640475948478
+
+UCEC TRUNCATION: 0 significant entries
+   PTEN:       0.9795663478621373
+

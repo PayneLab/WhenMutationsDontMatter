@@ -1,21 +1,4 @@
-PIK3CA Proteomics
+KRAS Proteomics
 Total number of cancer+mutation types measured: 6
 Taking the genes where p < 0.05
-EFNA1       2
-NFKB1       2
-IL3RA       2
-IKBKG       2
-CHRAC1      2
-GNG2        2
-HSP90AA1    2
-CDK2        2
-ITGA8       2
-ITGB7       2
-ITGA4       2
-COL6A6      2
-PFN1        2
-MRPS6       2
-PIK3CD      2
-NTRK2       2
-JAK1        2
-MFN1        2
+Series([], )

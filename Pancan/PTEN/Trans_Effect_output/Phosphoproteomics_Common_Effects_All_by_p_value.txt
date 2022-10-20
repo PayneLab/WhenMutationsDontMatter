@@ -1,0 +1,10 @@
+PTEN Phosphoproteomics
+Total number of cancer+mutation types measured: 5
+Taking the genes where p < 0.05
+HMCES_S160         2
+INPP5F_S668        2
+RSF1_S1277S1282    2
+SMC1A_S957         2
+EPN1_S447          2
+BRD7_S279          2
+NT5C2_S511         2

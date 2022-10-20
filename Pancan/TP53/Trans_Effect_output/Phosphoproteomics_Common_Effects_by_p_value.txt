@@ -1,0 +1,8 @@
+TP53 Phosphoproteomics
+Total number of cancer+mutation types measured: 12
+Taking the genes where p < 0.05
+PPP3CB_S478      2
+WEE1_S150        2
+WEE1_S165T173    2
+MAPK11_S271      2
+BRCA1_S114       2

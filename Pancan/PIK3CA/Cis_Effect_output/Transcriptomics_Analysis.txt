@@ -1,0 +1,18 @@
+BRCA MISSENSE: 0 significant entries
+   PIK3CA:     0.12446725266013524
+
+COAD MISSENSE: 0 significant entries
+   PIK3CA:     0.14813120616967565
+
+HNSCC AMPLIFICATION: 1 significant entries
+   PIK3CA:     2.1323101991415286e-08
+
+LSCC AMPLIFICATION: 1 significant entries
+   PIK3CA:     6.449401241821081e-06
+
+OV AMPLIFICATION: 1 significant entries
+   PIK3CA:     8.550827254250612e-06
+
+UCEC MISSENSE: 0 significant entries
+   PIK3CA:     0.3746728996518818
+

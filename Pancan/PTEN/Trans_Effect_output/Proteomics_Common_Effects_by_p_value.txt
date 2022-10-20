@@ -1,0 +1,4 @@
+PTEN Proteomics
+Total number of cancer+mutation types measured: 5
+Taking the genes where p < 0.05
+CDK2    2

@@ -1,29 +1,4 @@
-PIK3CA Transcriptomics
+KRAS Transcriptomics
 Total number of cancer+mutation types measured: 6
 Taking the genes where p < 0.05
-MFN1       3
-CDK4       2
-ITGB7      2
-IL3RA      2
-CSF1R      2
-PPP2R5A    2
-GMCL1      2
-MCL1       2
-THBS1      2
-PTEN       2
-PIK3CD     2
-JAK2       2
-PHLPP1     2
-IL2RG      2
-VEGFC      2
-ITGA8      2
-GNG11      2
-PIK3CG     2
-TEK        2
-NTRK2      2
-JAK1       2
-PPP2R3C    2
-BRCA1      2
-GNG2       2
-PIK3R5     2
-ITGA4      2
+Series([], )
