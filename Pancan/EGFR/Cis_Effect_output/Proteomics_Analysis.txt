@@ -1,0 +1,24 @@
+CCRCC AMPLIFICATION: 1 significant entries
+   EGFR:       0.004389047710779131
+
+COAD AMPLIFICATION: 0 significant entries
+   EGFR:       0.91497380496721
+
+GBM AMPLIFICATION: 1 significant entries
+   EGFR:       0.0006240217762475144
+
+GBM MISSENSE: 1 significant entries
+   EGFR:       3.630627355831124e-07
+
+HNSCC AMPLIFICATION: 1 significant entries
+   EGFR:       5.684786954116307e-10
+
+LSCC AMPLIFICATION: 1 significant entries
+   EGFR:       8.705031770182263e-06
+
+LUAD AMPLIFICATION: 1 significant entries
+   EGFR:       9.405226311268427e-06
+
+LUAD MISSENSE: 1 significant entries
+   EGFR:       0.00022508121579313867
+
