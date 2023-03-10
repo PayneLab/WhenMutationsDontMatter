@@ -1,5 +1,5 @@
 TP53 Phosphoproteomics
-Total number of cancer+mutation types measured: 12
+Total number of cancer+mutation types measured: 5
 Taking the genes where p < 0.05
 NCOA3_S867            2
 CCSAP_S240            2

@@ -1,5 +1,5 @@
 EGFR Phosphoproteomics
-Total number of cancer+mutation types measured: 8
+Total number of cancer+mutation types measured: 7
 Taking the genes where p < 0.05
 EGFR_S1166          3
 MAP3K8_S141         2

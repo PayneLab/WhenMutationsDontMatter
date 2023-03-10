@@ -1,5 +1,5 @@
 TP53 Transcriptomics
-Total number of cancer+mutation types measured: 12
+Total number of cancer+mutation types measured: 9
 Taking the genes where p < 0.05
 PAFAH1B1    5
 MAP2K4      4

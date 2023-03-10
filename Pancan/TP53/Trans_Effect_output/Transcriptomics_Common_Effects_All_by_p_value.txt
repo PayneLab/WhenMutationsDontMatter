@@ -1,5 +1,5 @@
 TP53 Transcriptomics
-Total number of cancer+mutation types measured: 12
+Total number of cancer+mutation types measured: 11
 Taking the genes where p < 0.05
 SCO1               5
 STX8               5

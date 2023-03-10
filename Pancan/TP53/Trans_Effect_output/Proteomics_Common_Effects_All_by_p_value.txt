@@ -1,5 +1,5 @@
 TP53 Proteomics
-Total number of cancer+mutation types measured: 12
+Total number of cancer+mutation types measured: 7
 Taking the genes where p < 0.05
 RABEP1      5
 GFM1        4
